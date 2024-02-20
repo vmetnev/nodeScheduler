@@ -1,0 +1,114 @@
+body {
+    box-sizing: border-box;
+}
+
+
+.sector {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.sector-heading {
+    width: 995px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+    padding: 3px;
+    border-bottom: 1px solid gray;
+    margin-bottom: 10px;
+}
+
+.sector-heading-element {
+    width: 300px;
+    font-weight: bold;
+
+}
+
+.sector-span,
+.industry-span,
+.company-span {
+    font-weight: 200;
+}
+
+.sector-open-close {
+    margin-left: auto;
+    border: none;
+    width: 100px;
+}
+
+.industry {
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+.industry:hover,.company:hover {
+    cursor: pointer;
+    outline:1px solid rgb(143, 143, 143);
+}
+
+
+.industry-heading {
+    width: 975px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+    padding: 3px;
+    margin-bottom: 10px;
+    background-color: rgb(229, 228, 228);
+}
+
+
+.industry-open-close {
+    font-size: 12px;
+    border: none;
+    width: 100px;
+
+}
+
+.industry-heading-element {
+    width: 300px;
+    font-weight: bold;
+}
+
+.industry-open-close {
+    margin-left: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+
+.company {
+    font-size: 12px;
+}
+
+
+.company-heading {
+    width: 975px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+
+.company-heading-element {
+    width: 200px;
+    font-weight: bold;
+}
+
+.go-to-company-page {
+    margin-left: auto;
+    border: none;
+    font-size: 12px;
+    width: 100px;
+
+}
