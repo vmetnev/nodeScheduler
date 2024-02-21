@@ -12,8 +12,8 @@ const dict = require('../Controllers/serviceDict')
 
 
 router.get('/search', async (req, res) => {
-    console.log(req.query)
-    let { ticker } = req.query
+    console.log('popopop')
+ 
 
     let dataToGet = 'ticker data.priceModule.longName data.assetProfile.sector data.assetProfile.industry data.assetProfile.longBusinessSummary data.priceModule.marketCap -_id'
 

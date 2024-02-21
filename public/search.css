@@ -2,6 +2,42 @@ body {
     box-sizing: border-box;
 }
 
+header {
+
+    border-bottom: 1px solid gray;
+    padding: 10px;
+}
+
+.header-ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    align-content: center;
+}
+
+.header-li {
+    list-style: none;
+    width:170px;
+}
+
+
+.header-a:hover {
+    color: blue;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.header-a {
+    text-decoration: none;
+    color: black
+}
+
+main {
+    margin-top: 15px;
+}
 
 .sector {
     width: 1000px;
@@ -42,9 +78,10 @@ body {
     margin-left: 20px;
 }
 
-.industry:hover,.company:hover {
+.industry:hover,
+.company:hover {
     cursor: pointer;
-    outline:1px solid rgb(143, 143, 143);
+    outline: 1px solid rgb(143, 143, 143);
 }
 
 
@@ -105,10 +142,50 @@ body {
     font-weight: bold;
 }
 
+.company-ticker:hover {
+    color: blue;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
 .go-to-company-page {
     margin-left: auto;
     border: none;
     font-size: 12px;
     width: 100px;
 
+}
+
+.description {
+    position: absolute;
+    border: 1px solid lightgray;
+    padding: 10px;
+    width: 700px;
+    /* display: flex;
+    flex-direction: column;
+    gap:5px; */
+    background-color: white;
+    font-size: 14px;
+}
+
+.description-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 30px;
+    background-color: rgb(235, 232, 232);
+}
+
+.description-heading-element {
+    margin-right: 30px;
+    display: inline;
+    margin: 0;
+
+}
+
+.description-description {
+    margin-top: 7px;
+    margin-bottom: 7px;
+    line-height: 20px;
 }

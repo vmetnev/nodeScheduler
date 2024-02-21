@@ -9,7 +9,13 @@
     </head>
 
     <body>
-
+        <header>
+            <ul class="header-ul">
+                <li class="header-li"><a class="header-a" href="tickerPage.html">Ticker Page</a></li>
+                <li class="header-li"><a class="header-a" href="search.html">Sector/Industry Groups</a></li>
+                <li class="header-li"><a class="header-a" href="textSearch.html">Text Search</a></li>
+            </ul>
+        </header>
         <main></main>
         <template id="sector-template">
             <div class="sector">
@@ -27,9 +33,11 @@
         <template id="industry-template">
             <div class="industry">
                 <div class="industry-heading">
-                    <div class="industry-heading-element">Industry: <span class="industry-span industry-name"></span></div>
+                    <div class="industry-heading-element">Industry: <span class="industry-span industry-name"></span>
+                    </div>
                     <div class="industry-heading-element">MC: <span class="industry-span industry-mc"></span></div>
-                    <div class="industry-heading-element"># of comp:<span class="industry-span industry-companies-count"></span></div>
+                    <div class="industry-heading-element"># of comp:<span
+                            class="industry-span industry-companies-count"></span></div>
                     <button class="industry-open-close">Open</button>
                 </div>
                 <div class="industry-companies-holder"></div>
@@ -47,6 +55,21 @@
                 <div class="company-description"></div>
             </div>
         </template>
+
+        <template id="description-template">
+            <div class="description">
+                <div class="description-header">
+                    <div class="description-heading-element"><span class="description-span description-ticker"></span></div>
+                    <div class="description-heading-element"><span class="description-span description-name"></span></div>
+                    <div class="description-heading-element"><span class="description-span description-mc"></span></div>
+                    
+                </div>
+                <div class="description-description"></div>
+                <button class="description-close-button">Close</button>
+            </div>
+        </template>
+
+
         <script src="./search.js"></script>
     </body>
 

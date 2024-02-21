@@ -1,5 +1,6 @@
 
 let market = []
+let serverData
 
 getData().then(market => {
     console.log(market)
@@ -15,12 +16,12 @@ getData().then(market => {
 )
 
 
-
 async function getData() {
     let query = await fetch('http://127.0.0.1:3003/outloader/search')
     let data = await query.json()
-
-    let market = []
+    console.log(data)
+    serverData = data
+    market = []
 
     data.forEach(company => {
 
@@ -122,11 +123,11 @@ function createSector(sectorName, sectorMc, sectorNoOfCompanies, sector) {
         sectorElement.querySelector('.sector-industry-holder').appendChild(industryElement)
 
         industry.industryCompanies.forEach(company => {
-
             let companyTemplate = document.querySelector('#company-template').content;
             let companyElement = companyTemplate.querySelector('.company').cloneNode(true);
             companyElement.querySelector('.go-to-company-page').addEventListener('click', handleTickerPageButton)
             companyElement.querySelector('.company-ticker').textContent = company.ticker
+            companyElement.querySelector('.company-ticker').addEventListener('click', showDescription)
             companyElement.querySelector('.company-name').textContent = company.companyName
             companyElement.querySelector('.company-mc').textContent = "USD " + goodNumber(Math.round(company.mc / 1000000000)) + " bn"
             industryElement.querySelector('.industry-companies-holder').classList.add('hidden')
@@ -135,8 +136,37 @@ function createSector(sectorName, sectorMc, sectorNoOfCompanies, sector) {
     })
 }
 
+function handleCloseDescriptionButton(evt) {
+    console.log('closing')
+    evt.target.closest('.description').remove()
+    document.querySelector('main').style.opacity=1
+}
 
 
+function showDescription(evt) {
+    console.log(evt.target.textContent)
+    console.log(evt.target.textContent.length)
+    let targetCompany = serverData.filter(element => element.ticker === evt.target.textContent)[0]
+
+    let descriptionTemplate = document.querySelector('#description-template').content;
+    let descriptionElement = descriptionTemplate.querySelector('.description').cloneNode(true);
+    descriptionElement.querySelector('.description-ticker').textContent = targetCompany.ticker
+    descriptionElement.querySelector('.description-name').textContent = targetCompany.companyName
+    descriptionElement.querySelector('.description-mc').textContent =  "USD " + goodNumber(Math.round(targetCompany.mc / 1000000000)) + " bn"
+
+document.querySelector('main').style.opacity=0.3
+   
+
+    descriptionElement.querySelector('.description-description').textContent = targetCompany.description
+    descriptionElement.querySelector('.description-close-button').addEventListener('click', handleCloseDescriptionButton)
+    descriptionElement.style.top = evt.clientY + "px"
+    descriptionElement.style.left = evt.clientX + "px"
+    document.body.appendChild(descriptionElement)
+
+    console.log(targetCompany)
+    console.log(evt.clientX)
+    console.log(evt.clientY)
+}
 
 function handleSectorOpenClose(evt) {
     console.log(evt.target)
