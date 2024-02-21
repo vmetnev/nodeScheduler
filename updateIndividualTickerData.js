@@ -34,7 +34,7 @@ function mongooseConnect() {
 mongooseConnect()
 
 const Ticker = mongoose.model(
-    'tickerData 20240219',
+    'tickerData2024-02-20',
     new Schema({
         ticker: String,
         date: String,
@@ -51,8 +51,8 @@ const ErrorLog = mongoose.model(
 )
 
 // let arr = ['MOS', 'VMC', 'RGLD', 'DD', 'ALB', 'RS', 'OMC', 'WBD', 'FOXA', 'NWS', 'GOOG', 'GOOGL', 'GOOGL', 'META', 'NYT', 'TJX', 'TSLA', 'VFS', 'ALV', 'MHK', 'PDD', 'CART', 'AVY', 'SCI', 'LVS', 'KVUE', 'DAR', 'OZK', 'IBKR', 'EG', 'RVTY', 'DVA', 'MDT', 'COR', 'RGEN', 'TDG', 'HXL', 'PWR', 'VLTO', 'ITT', 'CR', 'FLS', 'LECO', 'LECO', 'XPO', 'WM', 'RSG', 'CLH', 'OHI', 'HR', 'FR', 'NSA', 'ARE', 'ELS', 'UDR', 'KIM', 'BRX', 'AMT', 'WY', 'CSCO', 'HPQ', 'JBL', 'FI', 'TRMB', 'NVDA', 'ARM', 'QRVO', 'QRVO', 'INTU', 'ROP', 'TTD', 'FICO', 'MANH', 'CDAY', 'MNDY', 'DUOL', 'MSFT', 'ZS', 'MDB', 'OKTA', 'DBX', 'ALTR', 'CFLT', 'ENPH', 'DUK']
-
-let arr = ["WY"]
+// "^GSPC","^IXIC"
+let arr = ["GOOGL"]
 let counter = 0
 
 arr.forEach(ticker => {
@@ -704,6 +704,8 @@ async function getAllData(input) {
                     highObj.price = parseFloat(data[q][1])
                 }
             }
+
+            console.log(highObj)
             return [
                 lowObj,
                 lowObj.date,

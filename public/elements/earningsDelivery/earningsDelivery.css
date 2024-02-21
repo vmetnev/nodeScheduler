@@ -1,0 +1,24 @@
+.earningsDelivery {    
+    border-collapse: collapse;
+    font-size: 13px;
+    font-family: 'Times New Roman', Times, serif;
+    width: 510px;
+}
+
+th {
+    text-align: left;
+}
+
+th,
+td {
+    border: 1px solid grey;
+    height: 1em;
+    padding-left: 3px;
+}
+
+
+
+.td-right {
+    text-align: center;
+}
+

@@ -31,6 +31,21 @@ router.get('/html/all', async (req, res) => {
     }
 })
 
+
+router.get('/html/getTickerData', async (req, res) => {
+    console.log(req.query)
+    let { ticker } = req.query
+    let target = await TickerModel.findOne({ 'ticker': ticker }, '-__v')
+    if (target ) {
+        target = target.toObject()        
+        res.json(target)
+    } else {
+        res.json('n.a.')
+    }
+})
+
+
+
 router.post('/html/service', async (req, res) => {
     console.log(req.query)
     let { ticker, service } = req.query
@@ -39,11 +54,8 @@ router.post('/html/service', async (req, res) => {
 
     if (search) {
         console.log('serving from memory')
-
         let response = dict(search, service)
-
         res.json(response)
-
     } else {
 
         console.log('serving from database')
@@ -62,7 +74,6 @@ router.post('/html/service', async (req, res) => {
             } else {
                 target.report ="no report"
             }
-
 
             let response = dict(target, service)
             console.log(response)

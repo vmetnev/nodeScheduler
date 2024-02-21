@@ -1,0 +1,40 @@
+.performance {
+        border-collapse: collapse;
+    font-size: 13px;
+    font-family: 'Times New Roman', Times, serif;
+    width: 300px;
+
+}
+
+th {
+    text-align: left;
+}
+
+th,
+td {
+    border: 1px solid grey;
+    height: 1em;
+    padding-left: 3px;
+}
+
+.td-left{
+    text-align: left;
+}
+
+.td-right{
+    text-align: right;
+}
+
+.td-center{
+    text-align: center;
+}
+
+.red {
+    color: red;
+    
+}
+
+.green {
+    color: green;
+    
+}

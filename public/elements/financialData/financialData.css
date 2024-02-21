@@ -1,0 +1,25 @@
+.financialData {    
+    border-collapse: collapse;
+    font-size: 13px;
+    font-family: 'Times New Roman', Times, serif;
+    width: 250px;
+}
+
+th {
+    text-align: left;
+}
+
+th,
+td {
+    border: 1px solid grey;
+    height: 1em;
+    padding-left: 3px;
+}
+
+.td-left {
+    width: 120px;
+}
+
+.td-right {
+    width: 130px;
+}

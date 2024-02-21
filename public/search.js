@@ -1,4 +1,3 @@
-
 let market = []
 let serverData
 
@@ -14,7 +13,6 @@ getData().then(market => {
     Array.from(industryOpenCloseBTNs).forEach(button => button.addEventListener('click', handleIndustryOpenClose))
 }
 )
-
 
 async function getData() {
     let query = await fetch('http://127.0.0.1:3003/outloader/search')
@@ -97,9 +95,7 @@ async function getData() {
     return market
 }
 
-
 let rootEl = document.querySelector('main')
-
 
 function createSector(sectorName, sectorMc, sectorNoOfCompanies, sector) {
     const sectorTemplate = document.querySelector('#sector-template').content;
