@@ -118,9 +118,7 @@ function buildPerformanceTable(obj, spx, ccmp) {
     performanceCcmpYTD.textContent = ccmp.data.priceObject.perfYTD
 
    
-    console.log(obj.data.priceObject)
-
-
+    
     performanceTargetTicker52WeekLow.textContent = obj.data.priceObject.low52Price.toFixed(2)
     performanceSpx52WeekLow.textContent = goodNumber(spx.data.priceObject.low52Price.toFixed(2))
     performanceCcmp52WeekLow.textContent = goodNumber(ccmp.data.priceObject.low52Price.toFixed(2))

@@ -12,7 +12,7 @@ const database = {
     options: {},
 };
 
-database.collectionName = 'tickerdata2024-02-20'
+database.collectionName = 'tickerdata2024-02-24'
 
 const TickerModel = mongoose.model(
     database.collectionName,

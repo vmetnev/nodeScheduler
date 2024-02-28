@@ -12,25 +12,26 @@ const dict = require('../Controllers/serviceDict')
 
 
 router.get('/search', async (req, res) => {
-    console.log('popopop')
- 
-
     let dataToGet = 'ticker data.priceModule.longName data.assetProfile.sector data.assetProfile.industry data.assetProfile.longBusinessSummary data.priceModule.marketCap -_id'
-
     let data = await TickerModel.find({}, dataToGet)
     if (data) {
 
         let response = []
 
-        data.forEach(item => {
-            response.push({
-                ticker: item.ticker,
-                companyName: item.data.priceModule.longName,
-                mc: item.data.priceModule.marketCap,
-                sector: item.data.assetProfile.sector,
-                industry: item.data.assetProfile.industry,
-                description: item.data.assetProfile.longBusinessSummary,
-            })
+        data.forEach(item => { 
+            
+            if (item.ticker!="^GSPC" && item.ticker!="^IXIC") {
+                response.push({
+                    ticker: item.ticker,
+                    companyName: item.data.priceModule.longName,
+                    mc: item.data.priceModule.marketCap,
+                    sector: item.data.assetProfile.sector,
+                    industry: item.data.assetProfile.industry,
+                    description: item.data.assetProfile.longBusinessSummary,
+                })
+            }
+
+            
         })        
         res.json(response)
     } else {

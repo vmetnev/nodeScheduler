@@ -10,7 +10,8 @@ let sector = document.querySelector('.keyinfo-sector')
 let industry = document.querySelector('.keyinfo-industry')
 let beta = document.querySelector('.keyinfo-beta')
 
-function buildKeyInfoTable(obj) {    
+function buildKeyInfoTable(obj) {   
+    console.log(obj) 
     ticker.textContent = obj.ticker
     companyName.textContent = obj.data.priceModule.longName
     lastPrice.textContent = obj.data.priceModule.regularMarketPrice
@@ -18,7 +19,7 @@ function buildKeyInfoTable(obj) {
     enterpriseValue.textContent = goodNumber(Math.round(obj.data.defaultKeyStatistics.enterpriseValue / 1000000, 0))
     sector.textContent = obj.data.assetProfile.sector
     industry.textContent = obj.data.assetProfile.industry
-    beta.textContent = (obj.data.summaryDetail.summaryBeta).toFixed(2)
+    beta.textContent = (obj.data.summaryDetail.summaryBeta)//.toFixed(2)
 }
 
 function clearKeyInfoTable() {

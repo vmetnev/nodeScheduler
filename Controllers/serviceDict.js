@@ -1,6 +1,6 @@
 
 function dict(object, service) {
-    console.log(object)
+    
 
     try {
         if (service === "country") return object.data.assetProfile.country

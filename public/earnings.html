@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Earnings dates</title>
+    </head>
+
+    <body>
+        <table>
+            <tr class="table-header">
+                <th class="dates">Dates:</th>
+                <th>Technology</th>
+                <th>Commnications</th>
+                <th>Consumer discretionary</th>
+                <th>Consumer staples</th>
+                <th>Health care</th>
+                <th>Financials</th>
+                <th>Basic materials</th>
+                <th>Industrials</th>
+                <th>Energy</th>
+                <th>Real estate</th>
+                <th>Utilities</th>
+            </tr>
+        </table>
+
+        <table class="earningsTableHolder">
+
+        </table>
+
+        <script>
+            let sectors = [
+                'Technology',
+                'CommunicationServices',
+                'ConsumerCyclical',
+                'ConsumerDefensive',
+                'Healthcare',
+                'FinancialServices',
+                'BasicMaterials',
+                'Industrials',
+                'Energy',
+                'RealEstate',
+                'Utilities',
+            ]
+
+            let months = {
+                "Jan": "01",
+                "Feb": "02",
+                "Mar": "03",
+                "Apr": "04",
+                "May": "05",
+                "Jun": "06",
+                "Jul": "07",
+                "Aug": "08",
+                "Sep": "09",
+                "Oct": "10",
+                "Nov": "11",
+                "Dec": "12",
+            }
+            let today = new Date()
+
+            todayValue = new Date().valueOf()
+            let start = new Date(today.setDate(today.getDate() - 5))
+            let startValue = new Date(start).valueOf()
+            let finish = new Date(today.setDate(today.getDate() + 100))
+            let finishValue = new Date(finish).valueOf()
+            let dayInMS = 86400000
+
+
+            for (let q = startValue; q <= finishValue; q += dayInMS) {
+                let newDate = new Date(q).toString().slice(0, 15)
+                let tableDateString = newDate
+                let monthString = months[new Date(q).toString().slice(4, 7)]
+
+                let dayString = `${newDate.slice(11,15)}-${monthString}-${newDate.slice(8,10)}`
+                let dayStringClass = "M" + dayString
+
+                let tr = document.createElement('tr')
+                tr.classList.add(dayStringClass)
+
+                let td = document.createElement('td')
+                td.textContent = newDate
+                td.classList.add("dates")
+                tr.appendChild(td)
+
+                for (let i = 0; i < sectors.length; i++) {
+                    let td = document.createElement('td')
+                    td.classList.add(sectors[i])
+                    tr.appendChild(td)
+                    document.querySelector('.earningsTableHolder').appendChild(tr)
+                }
+
+            }
+
+
+
+
+            let weekDays = {
+                "0": "Sun",
+                "1": "Mon",
+                "2": "Tue",
+                "3": "Wed",
+                "4": "Thu",
+                "5": "Fri",
+                "6": "Sat",
+            }
+
+            getData()
+
+            async function getData() {
+                let resp = await fetch('http://localhost:3003/earnings/getEarningsDates')
+                resp = await resp.json()
+
+                resp.forEach(company => {
+                    console.log(company.ticker)
+                    let sector = company.sector.replaceAll(' ', "")
+
+
+                    let earningsDate = "M" + company.earningsDate
+                    if (sector && sector != "n.a." && earningsDate && earningsDate != "Mn.a.") {
+
+
+
+
+
+
+
+
+
+                        let row = document.querySelector(`.${earningsDate}`)
+                        if (row) {
+                            let cell = row.querySelector(`.${sector}`)
+                            let pp = document.createElement('p')
+                            pp.classList.add('ticker')
+                            pp.textContent = company.ticker
+                            pp.addEventListener('click',handleTickerClick)
+                            pp.title = company.companyName
+                            cell.appendChild(pp)
+                        }
+
+
+                    }
+
+
+
+                });
+            }
+
+
+            async function handleTickerClick(evt){
+                console.log(evt.target.textContent)
+            }
+
+        </script>
+    </body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        body,
+        p {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ticker:hover {
+            cursor: pointer;
+            color: rgb(217, 140, 26);
+        }
+
+        table {
+            font-size: 12px;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        td,
+        th {
+            border: 1px solid gray;
+            padding: 3px;
+            min-width: 120px;
+
+        }
+
+        th {
+            color: white;
+            background-color: rgb(22, 22, 32);
+        }
+
+        .table-header {
+            position: fixed;
+            background-color: white;
+            margin-bottom: 50px;
+        }
+
+
+        .dates {
+            width: 170px;
+        }
+    </style>
+
+</html>

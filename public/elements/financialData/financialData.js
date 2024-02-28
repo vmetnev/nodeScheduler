@@ -16,7 +16,7 @@ function buildFinancialDataTable(obj) {
     netDebt.textContent = goodNumber(Math.round((obj.data.defaultKeyStatistics.enterpriseValue - obj.data.priceModule.marketCap) / 1000000))
 
     fcf.textContent = goodNumber(Math.round(obj.data.financialData.freeCashflow / 1000000))
-    fcfYield.textContent = ((obj.data.financialData.freeCashflow / obj.data.defaultKeyStatistics.enterpriseValue - 1) * 100).toFixed(2) + "%"
+    fcfYield.textContent = ((obj.data.financialData.freeCashflow / obj.data.defaultKeyStatistics.enterpriseValue) * 100).toFixed(2) + "%"
 }
 
 function clearFinancialDataTable() {

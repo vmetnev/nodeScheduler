@@ -25,7 +25,7 @@ let actualMinus4 = document.querySelector('.actualMinus4')
 let diffMinus4 = document.querySelector('.diffMinus4')
 
 function buildEpsForecastTable(obj) {
-    console.log(obj)
+ 
 
     quarterEndMinus1.textContent = obj.data.earningsHistory.earnHistQuarterEndMinus1Q
     periodMinus1.textContent = obj.data.earningsHistory.earnHistPeriodMinus1Q

@@ -1,4 +1,5 @@
 // here we are getting first element
+
 getHTMLElements()
 
 async function getHTMLElements() {
@@ -161,19 +162,21 @@ async function handleTickerSearchButtpnClick() {
 
 async function getData(ticker) {
     let query = await fetch(`/outloader/html/getTickerData?ticker=${ticker}`)
-    let company = await query.json()   
-    
-    
+    let company = await query.json()
+
+    console.log(company)
+
+
     buildKeyInfoTable(company)
     buildInfoTable(company)
 
 
     query = await fetch(`/outloader/html/getTickerData?ticker=^GSPC`)
     spx = await query.json()
-    console.log(spx)
+
     query = await fetch(`/outloader/html/getTickerData?ticker=^IXIC`)
     ccmp = await query.json()
-    console.log(ccmp)
+
 
 
     buildPerformanceTable(company, spx, ccmp)
@@ -184,13 +187,23 @@ async function getData(ticker) {
     buildFinancialDataTable(company)
     buildGrowthTable(company)
     buildRevenueForecastTable(company)
-    buildEpsForecastTable(company)
+
     buildMarginTable(company)
     buildEPSY1HistoryTable(company)
     buildEPSQ1HistoryTable(company)
     buildForecastHistoryTable(company)
+    console.log('--------------------')
+    buildEpsForecastTable1(company)
     buildEpsForecastTable(company)
+
+    console.log('--------------------')
+
 }
+
+document.body.addEventListener("keydown", (event) => {
+   if (event.keyCode===13) handleTickerSearchButtpnClick()
+
+})
 
 
 function goodNumber(num, factor = 'none') {
@@ -250,32 +263,32 @@ function goodNumber(num, factor = 'none') {
         case 10:
             num = num.substring(0, 1) + " " + num.substring(1, 4) + " " + num.substring(4, 7) + " " +
                 num
-                .substring(7, 10)
+                    .substring(7, 10)
             break;
         case 11:
             num = num.substring(0, 2) + " " + num.substring(2, 5) + " " + num.substring(5, 8) + " " +
                 num
-                .substring(8, 11)
+                    .substring(8, 11)
             break;
         case 12:
             num = num.substring(0, 3) + " " + num.substring(3, 6) + " " + num.substring(6, 9) + " " +
                 num
-                .substring(9, 12)
+                    .substring(9, 12)
             break;
         case 13:
             num = num.substring(0, 1) + " " + num.substring(1, 4) + " " + num.substring(4, 7) + " " +
                 num
-                .substring(7, 10) + " " + num.substring(10, 13)
+                    .substring(7, 10) + " " + num.substring(10, 13)
             break;
         case 14:
             num = num.substring(0, 2) + " " + num.substring(2, 5) + " " + num.substring(5, 8) + " " +
                 num
-                .substring(8, 11) + " " + num.substring(11, 14)
+                    .substring(8, 11) + " " + num.substring(11, 14)
             break;
         case 15:
             num = num.substring(0, 3) + " " + num.substring(3, 6) + " " + num.substring(6, 9) + " " +
                 num
-                .substring(9, 12) + " " + num.substring(12, 15)
+                    .substring(9, 12) + " " + num.substring(12, 15)
             break;
         default:
             num = num

@@ -34,7 +34,7 @@ function mongooseConnect() {
 mongooseConnect()
 
 const Ticker = mongoose.model(
-    'tickerData2024-02-20',
+    'tickerData2024-02-24',
     new Schema({
         ticker: String,
         date: String,
@@ -43,16 +43,22 @@ const Ticker = mongoose.model(
 )
 
 const ErrorLog = mongoose.model(
-    'error',
+    'errortickerdata2024-02-24',
     new Schema({
         ticker: String,
         message: String,
     })
 )
 
-// let arr = ['MOS', 'VMC', 'RGLD', 'DD', 'ALB', 'RS', 'OMC', 'WBD', 'FOXA', 'NWS', 'GOOG', 'GOOGL', 'GOOGL', 'META', 'NYT', 'TJX', 'TSLA', 'VFS', 'ALV', 'MHK', 'PDD', 'CART', 'AVY', 'SCI', 'LVS', 'KVUE', 'DAR', 'OZK', 'IBKR', 'EG', 'RVTY', 'DVA', 'MDT', 'COR', 'RGEN', 'TDG', 'HXL', 'PWR', 'VLTO', 'ITT', 'CR', 'FLS', 'LECO', 'LECO', 'XPO', 'WM', 'RSG', 'CLH', 'OHI', 'HR', 'FR', 'NSA', 'ARE', 'ELS', 'UDR', 'KIM', 'BRX', 'AMT', 'WY', 'CSCO', 'HPQ', 'JBL', 'FI', 'TRMB', 'NVDA', 'ARM', 'QRVO', 'QRVO', 'INTU', 'ROP', 'TTD', 'FICO', 'MANH', 'CDAY', 'MNDY', 'DUOL', 'MSFT', 'ZS', 'MDB', 'OKTA', 'DBX', 'ALTR', 'CFLT', 'ENPH', 'DUK']
+
 // "^GSPC","^IXIC"
-let arr = ["GOOGL"]
+
+
+// let arr=  ['XLC','XLY', 'XLP', 'XLE', 'XLF', 'XLV', 'XLI', 'XLB', 'XLRE', 'XLK', 'XLU'] 
+
+let arr = ['AAPL', 'MDB', 'ERIE', 'FOX', 'NWS', 'FRHC', 'CWEN', 'ESGR', 'CRVL', 'IBOC', 'LLYVK', 'GHC', 'INDV', 'ODD', 'SGML', 'ENLT', 'SPNT', 'NWTN', 'IMKTA', 'NHC', 'SCRM', 'NRC', 'NYAX', 'RILY', 'OFLX', 'MATV', 'NPK', 'UHT', 'LWLG', 'EBTC', 'MTC', 'THCH', 'CONX', 'VAQC', 'RMGC', 'ACAH', 'GATE', 'BRID', 'BHAC', 'APAC', 'MURA', 'BYFC', 'PEPL', 'CHCI', 'CENN', 'NXPL', 'MNY', 'FAZE', 'GRNQ', 'CARV', 'OXBR', 'CMND', 'CMND', 'TAOP']
+
+// let arr = ["^GSPC","^IXIC"] 
 let counter = 0
 
 arr.forEach(ticker => {
@@ -882,14 +888,17 @@ async function getAllData(input) {
     //---------------------------------------------------------------------------------------------------------
 
     async function logError(message) {
-        let errorMessage = new ErrorLog({
-            ticker: ticker,
-            message: message
-        })
+        console.log('--------------')
+        console.log(ticker)
+        console.log(message)
+        // let errorMessage = new ErrorLog({
+        //     ticker: ticker,
+        //     message: message
+        // })
 
-        errorMessage.save().then(data => {
+        // errorMessage.save().then(data => {
 
-        })
+        // })
     }
 
     const promises = [

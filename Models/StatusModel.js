@@ -15,25 +15,19 @@ database.collectionName = 'status'
 const StatusModel = mongoose.model(
     database.collectionName,
     new Schema({
-        nameOfPreviousCollectionForTickersData:String,
-        nameOfPreviousCollectionForTickerError:String,
-
-        nameOfCurrentCollectionForTickersData:String,
-        nameOfCurrentCollectionForTickerError:String,
-
+        collectionName: String,
         tickerUpdateCurrentStatus: String,
-        tickerUpdateStartTime: String,        
+        tickerUpdateStartTime: String,
         tickerUpdateEndTime: String,
-        
-        listOfTickersQueredNumber: Number,
-        listOfTickersQueredArray: [String],
-        
-        listOfTickersSavedWithOutErrorsNumber: Number,
-        listOfTickersSavedWithOutErrorsArray: [String],
-        
-        listOfUniqueTickersWithMistakesNumber: Number,
-        listOfUniqueTickersWithMistakesArray: [Array],
-        arrayOfCurrentOrLastErrors:[String]
+        noOfTickersQuered: Number,
+        listOfTickersQuered: [String],
+        noOfTickersOK: Number,
+        listOfTickersOK: [String],
+        noOfTickersErrors: Number,
+        noOfErrors: Number,
+        listOfTickersWithErrors: [String],
+        arrayOfErrors: [String],
+        lastQueryTime: String
     })
 )
 

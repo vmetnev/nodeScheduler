@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Scheduler Status:</h1>
+            <table>
+                <tr>
+                    <td>Collection name:</td>
+                    <td class="collectionName"></td>
+                </tr>
+
+                <tr>
+                    <td>Current status:</td>
+                    <td class="currentStatus"></td>
+                </tr>
+
+                <tr>
+                    <td>Start time:</td>
+                    <td class="startTime"></td>
+                </tr>
+
+                <tr>
+                    <td>Last query time:</td>
+                    <td class="lastQueryTime"></td>
+                </tr>
+                <tr>
+                    <td>End time:</td>
+                    <td class="endTime"></td>
+                </tr>
+
+                <tr>
+                    <td>No of tickers served:</td>
+                    <td class="noOfTickersServed"></td>
+                </tr>
+
+                <tr>
+                    <td>No of tickers OK:</td>
+                    <td class="noOfTickersOK"></td>
+                </tr>
+
+                <tr>
+                    <td>No of tickers with errors:</td>
+                    <td class="noOfTickersWithErrors"></td>
+                </tr>
+
+                <tr>
+                    <td>No of errors:</td>
+                    <td class="noOfErrors"></td>
+                </tr>
+
+                <tr>
+                    <td><button class="table-button showServedTickers">Show served tickers</button></td>
+                    <td>
+                        <div class="servedTickers none"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><button class="table-button showOkTickers">Show OK tickers</button></td>
+                    <td>
+                        <div class="okTickers none"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><button class="table-button showErrorTickers">Show error tickers</button></td>
+                    <td>
+                        <div class="errorTickers none"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><button class="table-button showErrors">Show errors</button></td>
+                    <td>
+                        <div class="errors none"></div>
+                    </td>
+                </tr>
+
+
+            </table>
+            <button class="updateBtn">Update</button>
+
+        </div>
+        <script>
+            document.querySelector('.showServedTickers').addEventListener('click', () => {
+                showHideTarget('.servedTickers')
+            })
+            document.querySelector('.showOkTickers').addEventListener('click', () => {
+                showHideTarget('.okTickers')
+            })
+            document.querySelector('.showErrorTickers').addEventListener('click', () => {
+                showHideTarget('.errorTickers')
+            })
+            document.querySelector('.showErrors').addEventListener('click', () => {
+                showHideTarget('.errors')
+            })
+
+
+            function showHideTarget(targetClass) {
+                let target = document.querySelector(targetClass)
+
+                if (target.classList.contains('none')) {
+                    target.classList.remove('none')
+                    target.classList.add('show')
+                } else {
+                    target.classList.remove('show')
+                    target.classList.add('none')
+                }
+            }
+
+            //-------------------------------------------------------------------------------
+            document.querySelector('.updateBtn').addEventListener('click', () => {
+                getStatus()
+            })
+
+            getStatus()
+
+            async function getStatus() {
+                let resp = await fetch('http://127.0.0.1:3003/status/getTable')
+                resp = await resp.json()
+                console.log(resp)
+                document.querySelector('.collectionName').textContent = resp.collectionName
+                document.querySelector('.currentStatus').textContent = resp.tickerUpdateCurrentStatus
+                document.querySelector('.startTime').textContent = resp.tickerUpdateStartTime
+                document.querySelector('.lastQueryTime').textContent = resp.lastQueryTime
+                document.querySelector('.endTime').textContent = resp.tickerUpdateEndTime
+                document.querySelector('.noOfTickersServed').textContent = resp.noOfTickersQuered
+                document.querySelector('.noOfTickersOK').textContent = resp.noOfTickersOK
+                document.querySelector('.noOfTickersWithErrors').textContent = resp.noOfTickersErrors
+                document.querySelector('.noOfErrors').textContent = resp.noOfErrors
+
+                document.querySelector('.servedTickers').textContent = resp.listOfTickersQuered.toString().replaceAll(",",", ")
+                document.querySelector('.okTickers').textContent = resp.listOfTickersOK.toString().replaceAll(",",", ")
+                document.querySelector('.errorTickers').textContent = resp.listOfTickersWithErrors.toString().replaceAll(",",", ")
+                document.querySelector('.errors').textContent = resp.arrayOfErrors.toString().replaceAll(",",", ")
+            }
+            
+        </script>
+    </body>
+    <style>
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid gray;
+            padding: 5px;
+        }
+
+        .updateBtn {
+            width: 70px;
+        }
+
+        .table-button {
+            width: 150px;
+            text-align: left;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+
+</html>

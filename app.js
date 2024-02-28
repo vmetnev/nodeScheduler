@@ -1,8 +1,6 @@
 const express = require('express')
 const app = express()
 
-const LoadTickerModel = require('./Models/LoadTickerModel')
-
 var bodyParser = require('body-parser')
 const path = require('path')
 const fs = require('fs')
@@ -13,8 +11,6 @@ const corsOptions = {
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 }
-
-
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -40,6 +36,7 @@ function mongooseConnect() {
 
 mongooseConnect()
 
+app.use(thisTest)
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(cors(corsOptions))
@@ -50,9 +47,18 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json())
 
+
+function thisTest(req,res,next){
+    console.log('here')
+    console.log(req.url)
+    next()
+}
+
 app.use('/outloader', require('./Routes/excelRoutes'))
 app.use('/outloader', require('./Routes/htmlRoutes'))
 app.use('/outloader', require('./Routes/searchRoutes'))
+app.use('/status', require('./Routes/statusRoutes'))
+app.use('/earnings', require('./Routes/earningsDatesRoutes'))
 
 app.listen(3003, function () {
     console.log('server started at post 3003')
