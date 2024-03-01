@@ -13,6 +13,7 @@ const corsOptions = {
 }
 
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 mongoose.set("strictQuery", false);
 
 const database = {
@@ -36,9 +37,8 @@ function mongooseConnect() {
 
 mongooseConnect()
 
-app.use(thisTest)
-app.use(express.static(path.join(__dirname, 'public')))
 
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors(corsOptions))
 
 app.use(bodyParser.urlencoded({
@@ -48,11 +48,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 
-function thisTest(req,res,next){
-    console.log('here')
-    console.log(req.url)
-    next()
-}
 
 app.use('/outloader', require('./Routes/excelRoutes'))
 app.use('/outloader', require('./Routes/htmlRoutes'))

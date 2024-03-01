@@ -15,6 +15,7 @@ database.collectionName = 'status'
 const StatusModel = mongoose.model(
     database.collectionName,
     new Schema({
+        collectionNamePrevious:String,
         collectionName: String,
         tickerUpdateCurrentStatus: String,
         tickerUpdateStartTime: String,

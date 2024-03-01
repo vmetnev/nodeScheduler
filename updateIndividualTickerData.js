@@ -1,7 +1,6 @@
 const yahooFinance = require('yahoo-finance2').default;
 const fs = require('fs')
 const path = require('path')
-const LoadTicker = require('./Models/LoadTickerModel')
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -56,9 +55,11 @@ const ErrorLog = mongoose.model(
 
 // let arr=  ['XLC','XLY', 'XLP', 'XLE', 'XLF', 'XLV', 'XLI', 'XLB', 'XLRE', 'XLK', 'XLU'] 
 
-let arr = ['AAPL', 'MDB', 'ERIE', 'FOX', 'NWS', 'FRHC', 'CWEN', 'ESGR', 'CRVL', 'IBOC', 'LLYVK', 'GHC', 'INDV', 'ODD', 'SGML', 'ENLT', 'SPNT', 'NWTN', 'IMKTA', 'NHC', 'SCRM', 'NRC', 'NYAX', 'RILY', 'OFLX', 'MATV', 'NPK', 'UHT', 'LWLG', 'EBTC', 'MTC', 'THCH', 'CONX', 'VAQC', 'RMGC', 'ACAH', 'GATE', 'BRID', 'BHAC', 'APAC', 'MURA', 'BYFC', 'PEPL', 'CHCI', 'CENN', 'NXPL', 'MNY', 'FAZE', 'GRNQ', 'CARV', 'OXBR', 'CMND', 'CMND', 'TAOP']
+// let arr = ['AAPL', 'MDB', 'ERIE', 'FOX', 'NWS', 'FRHC', 'CWEN', 'ESGR', 'CRVL', 'IBOC', 'LLYVK', 'GHC', 'INDV', 'ODD', 'SGML', 'ENLT', 'SPNT', 'NWTN', 'IMKTA', 'NHC', 'SCRM', 'NRC', 'NYAX', 'RILY', 'OFLX', 'MATV', 'NPK', 'UHT', 'LWLG', 'EBTC', 'MTC', 'THCH', 'CONX', 'VAQC', 'RMGC', 'ACAH', 'GATE', 'BRID', 'BHAC', 'APAC', 'MURA', 'BYFC', 'PEPL', 'CHCI', 'CENN', 'NXPL', 'MNY', 'FAZE', 'GRNQ', 'CARV', 'OXBR', 'CMND', 'CMND', 'TAOP']
 
 // let arr = ["^GSPC","^IXIC"] 
+
+let arr = ["AAPL"] 
 let counter = 0
 
 arr.forEach(ticker => {

@@ -58,6 +58,8 @@ async function updateSearchTickerData() {
 
     let data = await LoadTicker.find({}, 'ticker -_id')
 
+    console.log(data.length)
+
     // Delay and setting out timeout queries
     let delay = 0
     let ifEnd = false
@@ -66,7 +68,7 @@ async function updateSearchTickerData() {
 
         let contender = {}
         contender.ticker = instance.ticker
-        delay = delay + 3000 + 1000 * Math.random()
+        delay = delay + 4000 + 1000 * Math.random()
         if (q % 50 === 0) delay = delay + 15000
         if (q === data.length - 1) ifEnd = true
         setTimeout(() => {

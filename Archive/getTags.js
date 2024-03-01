@@ -2,9 +2,9 @@ const { secEdgarApi } = require('sec-edgar-api')
 const yahooFinance = require('yahoo-finance2').default;
 const fs = require('fs')
 const path = require('path')
-const LoadTicker = require('./Models/LoadTickerModel')
+const LoadTicker = require('../Models/LoadTickerModel')
 
-const Tag = require('./Models/NewsTagModel')
+const Tag = require('../Models/NewsTagModel')
 
 const mongoose = require("mongoose");
 

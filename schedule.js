@@ -1,14 +1,9 @@
-
-
 const schedule = require('node-schedule');
 
 const everyMinute = schedule.scheduleJob('*/1 * * * *', () => {
     console.log('Task executed every 1 minute:', new Date().toLocaleTimeString());
-
-    console.log(`${new Date()} jo b started`)
-
+    console.log(`${new Date()} job started`)
   });
-
 
 
   var rule = new schedule.RecurrenceRule();

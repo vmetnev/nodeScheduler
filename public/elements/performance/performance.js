@@ -125,8 +125,8 @@ function buildPerformanceTable(obj, spx, ccmp) {
 
 
     performanceTargetTicker52WeekHigh.textContent = obj.data.priceObject.high52Price
-    performanceSpx52WeekHigh.textContent = goodNumber(spx.data.priceObject.high52Price.toFixed(2))
-    performanceCcmp52WeekHigh.textContent = goodNumber(ccmp.data.priceObject.high52Price.toFixed(2))
+    // performanceSpx52WeekHigh.textContent = goodNumber(spx.data.priceObject.high52Price.toFixed(2))
+    // performanceCcmp52WeekHigh.textContent = goodNumber(ccmp.data.priceObject.high52Price.toFixed(2))
 
     toColorize.forEach(item => {
         colorizeCells(item)

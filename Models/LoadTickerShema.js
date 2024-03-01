@@ -11,33 +11,30 @@ const database = {
     options: {},
 };
 
-database.collectionName = 'shortlistoftickers'
 
-const LoadTicker = mongoose.model(
-    database.collectionName,
+
+const LoadTickerSchema =
     new Schema({
-
         spx: Boolean,
         ccmp: Boolean,
         mid: Boolean,
         sml: Boolean,
 
         ticker: String,
-        tickerType:String,
+        tickerType: String,
         companyName: String,
         sector: String,
         industry: String,
         mc: Number,
         description: String,
- 
-        lessThen1 :Boolean,
-        from1to10:Boolean,
-        from10to40 :Boolean,
-        from40to100 :Boolean,
-        from100to500 :Boolean,
-        from500 :Boolean,
 
+        lessThen1: Boolean,
+        from1to10: Boolean,
+        from10to40: Boolean,
+        from40to100: Boolean,
+        from100to500: Boolean,
+        from500: Boolean,
     }, { strict: false })
-)
 
-module.exports = LoadTicker
+
+module.exports = LoadTickerSchema

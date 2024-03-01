@@ -5,22 +5,34 @@ const express = require('express')
 const router = express.Router()
 const path = require('path')
 const mongoose = require("mongoose");
-const TickerModel = require('../Models/TickerModel')
+const Schema = mongoose.Schema
+
 const ReportModel = require('../Models/ReportModel')
 const dict = require('../Controllers/serviceDict')
 
+let statusModel = require('../Models/StatusModel')
 
+const TickerSchema = require('../Models/TickerSchema')
+getLastTickerDataCollectionName()
+
+let TickerModel = {}
+
+async function getLastTickerDataCollectionName() {
+    let statusObject = await statusModel.findOne({})
+    TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
+}
 
 router.get('/search', async (req, res) => {
+    console.log('here')
     let dataToGet = 'ticker data.priceModule.longName data.assetProfile.sector data.assetProfile.industry data.assetProfile.longBusinessSummary data.priceModule.marketCap -_id'
     let data = await TickerModel.find({}, dataToGet)
     if (data) {
 
         let response = []
 
-        data.forEach(item => { 
-            
-            if (item.ticker!="^GSPC" && item.ticker!="^IXIC") {
+        data.forEach(item => {
+
+            if (item.ticker != "^GSPC" && item.ticker != "^IXIC") {
                 response.push({
                     ticker: item.ticker,
                     companyName: item.data.priceModule.longName,
@@ -31,8 +43,8 @@ router.get('/search', async (req, res) => {
                 })
             }
 
-            
-        })        
+
+        })
         res.json(response)
     } else {
         res.json('n.a.')

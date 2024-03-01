@@ -15,6 +15,10 @@
                     <td>Collection name:</td>
                     <td class="collectionName"></td>
                 </tr>
+                <tr>
+                    <td>Previous collection name:</td>
+                    <td class="collectionNamePrevious"></td>
+                </tr>
 
                 <tr>
                     <td>Current status:</td>
@@ -127,6 +131,7 @@
                 resp = await resp.json()
                 console.log(resp)
                 document.querySelector('.collectionName').textContent = resp.collectionName
+                document.querySelector('.collectionNamePrevious').textContent = resp.collectionNamePrevious
                 document.querySelector('.currentStatus').textContent = resp.tickerUpdateCurrentStatus
                 document.querySelector('.startTime').textContent = resp.tickerUpdateStartTime
                 document.querySelector('.lastQueryTime').textContent = resp.lastQueryTime
@@ -136,12 +141,14 @@
                 document.querySelector('.noOfTickersWithErrors').textContent = resp.noOfTickersErrors
                 document.querySelector('.noOfErrors').textContent = resp.noOfErrors
 
-                document.querySelector('.servedTickers').textContent = resp.listOfTickersQuered.toString().replaceAll(",",", ")
-                document.querySelector('.okTickers').textContent = resp.listOfTickersOK.toString().replaceAll(",",", ")
-                document.querySelector('.errorTickers').textContent = resp.listOfTickersWithErrors.toString().replaceAll(",",", ")
-                document.querySelector('.errors').textContent = resp.arrayOfErrors.toString().replaceAll(",",", ")
+                document.querySelector('.servedTickers').textContent = resp.listOfTickersQuered.toString()
+                    .replaceAll(",", ", ")
+                document.querySelector('.okTickers').textContent = resp.listOfTickersOK.toString().replaceAll(",",
+                    ", ")
+                document.querySelector('.errorTickers').textContent = resp.listOfTickersWithErrors.toString()
+                    .replaceAll(",", ", ")
+                document.querySelector('.errors').textContent = resp.arrayOfErrors.toString().replaceAll(",", ", ")
             }
-            
         </script>
     </body>
     <style>

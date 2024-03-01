@@ -44,6 +44,7 @@ status.setStatusObject = async function () {
     }
 
     status = await statusModel.findOneAndUpdate({}, {
+        collectionNamePrevious:status.collectionName,
         collectionName: `tickerdata${new Date().toISOString().slice(0, 10)}`,
         tickerUpdateCurrentStatus: "In process",
         tickerUpdateStartTime: new Date(),
