@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const LoadTicker = require('./Models/LoadTickerModel')
+const LoadTicker = require('../Models/LoadTickerModel')
 
 const mongoose = require("mongoose");
 const {

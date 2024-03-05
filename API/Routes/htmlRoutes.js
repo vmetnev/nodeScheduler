@@ -20,7 +20,10 @@ let TickerModel = {}
 async function getLastTickerDataCollectionName() {
     let statusObject = await statusModel.findOne({})
     console.log(statusObject.collectionName)
-    TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
+    TickerModel = mongoose.model('tickerdatatests', TickerSchema)
+    
+
+    // TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
 }
 
 

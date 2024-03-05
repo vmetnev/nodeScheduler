@@ -46,7 +46,7 @@ router.get('/search', async (req, res) => {
 
         })
         res.json(response)
-    } else {
+    } else { 
         res.json('n.a.')
     }
 })

@@ -60,28 +60,28 @@
                 </tr>
 
                 <tr>
-                    <td><button class="table-button showServedTickers">Show served tickers</button></td>
+                    <td class="tbutton"><button class="table-button showServedTickers">Show served tickers</button></td>
                     <td>
                         <div class="servedTickers none"></div>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><button class="table-button showOkTickers">Show OK tickers</button></td>
+                    <td class="tbutton"><button class="table-button showOkTickers">Show OK tickers</button></td>
                     <td>
                         <div class="okTickers none"></div>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><button class="table-button showErrorTickers">Show error tickers</button></td>
+                    <td class="tbutton"><button class="table-button showErrorTickers">Show error tickers</button></td>
                     <td>
                         <div class="errorTickers none"></div>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><button class="table-button showErrors">Show errors</button></td>
+                    <td class="tbutton"><button class="table-button showErrors">Show errors</button></td>
                     <td>
                         <div class="errors none"></div>
                     </td>
@@ -123,11 +123,11 @@
             document.querySelector('.updateBtn').addEventListener('click', () => {
                 getStatus()
             })
-
+ 
             getStatus()
 
             async function getStatus() {
-                let resp = await fetch('http://127.0.0.1:3003/status/getTable')
+                let resp = await fetch('http://127.0.0.1:3002/getTable')
                 resp = await resp.json()
                 console.log(resp)
                 document.querySelector('.collectionName').textContent = resp.collectionName
@@ -175,7 +175,11 @@
 
         .table-button {
             width: 150px;
-            text-align: left;
+            text-align: left;          
+        }
+
+        .tbutton{
+            vertical-align : top;
         }
 
         .none {

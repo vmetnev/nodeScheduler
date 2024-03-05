@@ -2,6 +2,9 @@ const yahooFinance = require('yahoo-finance2').default;
 const fs = require('fs')
 const path = require('path')
 
+const calendarEvents = require('../FetchModules/calendarEvents')
+const assetProfile = require('../FetchModules/assetProfile')
+
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
@@ -33,7 +36,7 @@ function mongooseConnect() {
 mongooseConnect()
 
 const Ticker = mongoose.model(
-    'tickerData2024-02-24',
+    'tickerDatatest',
     new Schema({
         ticker: String,
         date: String,
@@ -57,9 +60,9 @@ const ErrorLog = mongoose.model(
 
 // let arr = ['AAPL', 'MDB', 'ERIE', 'FOX', 'NWS', 'FRHC', 'CWEN', 'ESGR', 'CRVL', 'IBOC', 'LLYVK', 'GHC', 'INDV', 'ODD', 'SGML', 'ENLT', 'SPNT', 'NWTN', 'IMKTA', 'NHC', 'SCRM', 'NRC', 'NYAX', 'RILY', 'OFLX', 'MATV', 'NPK', 'UHT', 'LWLG', 'EBTC', 'MTC', 'THCH', 'CONX', 'VAQC', 'RMGC', 'ACAH', 'GATE', 'BRID', 'BHAC', 'APAC', 'MURA', 'BYFC', 'PEPL', 'CHCI', 'CENN', 'NXPL', 'MNY', 'FAZE', 'GRNQ', 'CARV', 'OXBR', 'CMND', 'CMND', 'TAOP']
 
-// let arr = ["^GSPC","^IXIC"] 
+let arr = ["^GSPC","^IXIC"] 
 
-let arr = ["AAPL"] 
+// let arr = ["CRM","AMZN","AMD","META"]
 let counter = 0
 
 arr.forEach(ticker => {
@@ -78,83 +81,8 @@ async function getAllData(input) {
     tickerInstance.ticker = ticker
     tickerInstance.date = new Date().toString()
 
-    const assetProfile = new Promise(async (resolve, reject) => {
-        let thisError = false
 
-        const results = await yahooFinance.quoteSummary(ticker, { modules: ["assetProfile"] }).catch(error => {
-            thisError = true
-            let message = ticker + " in asset profile - " + error.toString()
-            logError(message)
-            reject({
-                assetProfileStatus: "ERROR",
-                assetProfileError: message
-            })
-        })
 
-        if (!thisError) {
-
-            try {
-                data = results.assetProfile
-                let structure = {}
-                let assetProfile = {}
-                structure.country = data.country
-                structure.industry = data.industry
-                structure.sector = data.sector
-                structure.website = data.website
-                structure.longBusinessSummary = data.longBusinessSummary
-                structure.fullTimeEmployees = data.fullTimeEmployees
-                structure.status = "OK"
-                assetProfile.assetProfile = Object.assign({}, structure)
-                resolve(assetProfile)
-            } catch (error) {
-                let message = ticker + " in asset profile - " + error.toString()
-                logError(message)
-                reject({
-                    assetProfileStatus: "ERROR",
-                    assetProfileError: message
-                })
-            }
-        }
-    })
-
-    const calendarEvents = new Promise(async (resolve, reject) => {
-        let thisError = false
-
-        const results = await yahooFinance.quoteSummary(ticker, { modules: ["calendarEvents"] }).catch(error => {
-            thisError = true
-            let message = ticker + " in calendar events - " + error.toString()
-            logError(message)
-            reject({
-                calendarEventsStatus: "ERROR",
-                calendarEventsError: message
-            })
-        })
-
-        if (!thisError) {
-            try {
-                data = results.calendarEvents.earnings
-                let structure = {}
-                let calendarEvents = {}
-                structure.earningsDate = (data.earningsDate[0]) ? new Date(data.earningsDate[0]).toISOString().split("T")[0] : "n.a."
-                structure.earningsAverage = data.earningsAverage
-                structure.earningsLow = data.earningsLow
-                structure.earningsHigh = data.earningsHigh
-                structure.revenueAverage = data.revenueAverage
-                structure.revenueLow = data.revenueLow
-                structure.revenueHigh = data.revenueHigh
-                structure.status = "OK"
-                calendarEvents.calendarEvents = Object.assign({}, structure)
-                resolve(calendarEvents)
-            } catch (error) {
-                let message = ticker + " in calendar events - " + error.toString()
-                logError(message)
-                reject({
-                    calendarEventsStatus: "ERROR",
-                    calendarEventsError: message
-                })
-            }
-        }
-    })
 
     const fiveYearPriceData = new Promise(async (resolve, reject) => {
         let today = new Date(new Date().toISOString().split('T')[0])
@@ -903,8 +831,8 @@ async function getAllData(input) {
     }
 
     const promises = [
-        assetProfile,
-        calendarEvents,
+        assetProfile(ticker),
+        calendarEvents(ticker),
         fiveYearPriceData,
         defaultKeyStatistics,
         earningsHistory,

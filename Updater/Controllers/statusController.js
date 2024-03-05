@@ -1,37 +1,14 @@
-
 const mongoose = require("mongoose");
-const {
-    Schema
-} = mongoose;
+const Schema = mongoose.Schema
 
-const database = {
-    uri: "mongodb://127.0.0.1:27017/",
-    name: "scheduler",
-    user: "",
-    password: "",
-    options: {},
-};
+const { database } = require('../A_KEY_DATA/keyData')
 
-database.collectionName = 'status'
+const collectionNameForStatus = 'status'
 
-function mongooseConnect() {
-    mongoose.connect(`${database.uri}${database.name}`, database.options).then(
-        () => {
-            console.log("Mongo connected...")
-        },
-        err => {
-            console.error(err)
-        }
-    )
-}
+const statusSchema = require('../Schemas/StatusSchema')
+const statusModel = mongoose.model(collectionNameForStatus, statusSchema)
 
-mongooseConnect()
-
-const statusModel = require('../Models/StatusModel')
-
-function status() {
-
-}
+const status = () => { }
 
 // sets the object before work
 // status.setStatusObject()
@@ -44,8 +21,8 @@ status.setStatusObject = async function () {
     }
 
     status = await statusModel.findOneAndUpdate({}, {
-        collectionNamePrevious:status.collectionName,
-        collectionName: `tickerdata${new Date().toISOString().slice(0, 10)}`,
+        collectionNamePrevious: status.collectionName,
+        collectionName: collectionNameForStatus,
         tickerUpdateCurrentStatus: "In process",
         tickerUpdateStartTime: new Date(),
         tickerUpdateEndTime: "not yet",
@@ -113,6 +90,7 @@ status.addError = async function (text) {
 }
 
 status.finish = async function () {
+    console.log('finish fired')
     return new Promise(async (resolve, reject) => {
         let status = await statusModel.findOne({})
         status.tickerUpdateCurrentStatus = "Finished"
@@ -121,33 +99,5 @@ status.finish = async function () {
         resolve("ok")
     })
 }
-
-
-
-
-// for internal use
-setTimeout(async () => {
-    status.print()
-
-    await status.addOKTicker("fdfd")
-    await status.addOKTicker("eee")
-    await status.addOKTicker("fd333fd")
-    await status.addOKTicker("fd beberfd")
-
-
-    await status.addErrorTicker("AAPL")
-    await status.addErrorTicker("MDB")
-
-
-
-    await status.addError("some error")
-    await status.addError("some error2")
-
-    await status.addQueredTicker("ADBE")
-    await status.addQueredTicker("XOM")
-
-}, 1000)
-
-
 
 module.exports = status
