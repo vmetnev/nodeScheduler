@@ -1,7 +1,7 @@
 const yahooFinance = require('yahoo-finance2').default;
 const fs = require('fs')
 const path = require('path')
-
+const updateNewsStories = require('./updateNewsStories')
 const logError = require('../FetchModules/logError')
 
 // Adding fetch modules
@@ -50,12 +50,12 @@ async function updateSearchTickerData() {
     console.log(`Total number of tickers to be served = ${data.length}`)
 
     let delay = 0
-    for (let q = 1; q < data.length; q++) {
+    for (let q = 0; q < data.length; q++) {
         let ticker = data[q].ticker
         let tickerType = data[q].tickerType
-        console.log(`ticker type if ${tickerType}`)
-        delay = delay + 3000 + 1000 * Math.random()
-        if (q % 50 === 0) delay = delay + 11000
+
+        delay = delay + 4000 + 1000 * Math.random()
+        if (q % 50 === 0) delay = delay + 15000
 
         setTimeout(() => {
             getAllData(ticker, q, data.length - 1)
@@ -65,7 +65,7 @@ async function updateSearchTickerData() {
 
 
 async function getAllData(ticker, q, lastElementIndex) {
-    console.log(q)
+    console.log(`${q}- of ${lastElementIndex}`)
     console.log(ticker)
     let tickerInstance = {}
 
@@ -76,12 +76,12 @@ async function getAllData(ticker, q, lastElementIndex) {
     tickerInstance.ticker = ticker
     tickerInstance.date = new Date().toString()
 
-    const otherPromisses=[
+    const otherPromisses = [
         summaryDetail(ticker),
         priceModule(ticker),
         fiveYearPriceData(ticker),
     ]
-   
+
 
     const equityPromisses = [
         assetProfile(ticker),
@@ -124,11 +124,15 @@ async function getAllData(ticker, q, lastElementIndex) {
         ticker.data = tickerInstance
         ticker.save()
 
-        if (q === lastElementIndex) status.finish()
+        if (q === lastElementIndex) {
+            status.finish()
+            updateNewsStories()
+        }
     }
     ).catch(error => {
-        logError(`Error saving results for ${ticker} Error: ${error}`)
+        logError(`Error saving results for ${ticker} Error: ${error}`, ticker)
     });
 }
 
 
+module.exports = updateSearchTickerData

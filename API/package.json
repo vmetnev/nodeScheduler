@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon app.js",
+    "api": "nodemon apiApp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +14,7 @@
     "express": "^4.18.2",
     "mongoose": "^8.1.2",
     "node-schedule": "^2.1.1",
+    "nodemon": "^3.1.0",
     "sec-edgar-api": "^0.1.1",
     "uuid": "^9.0.1",
     "yahoo-finance2": "^2.9.1"

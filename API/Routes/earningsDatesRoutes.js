@@ -6,18 +6,24 @@ const path = require('path')
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TickerModel = mongoose.model('tickerdata2024-02-28', require('../Models/TickerSchema'))
+const status = require('../Models/StatusModel')
+
 
 
 router.get('/getEarningsDates', async (req, res) => {
     console.log('99999')
-    console.log(req.query)
-    let resp = await TickerModel.find({})
+    let statusObject = await status.findOne({})
+    console.log(statusObject.collectionName)
+    const TickerModel = mongoose.model(statusObject.collectionName, require('../Models/TickerSchema'))
 
+    console.log(TickerModel)
+    let resp = await TickerModel.find({})
+    console.log(resp.length)
     let companies = []
 
     resp.forEach(element => {
-        if (element.data.priceModule && element.data.priceModule.marketCap && element.data.priceModule.marketCap >= 30000) {            
+
+        if (element.data.priceModule && element.data.priceModule.marketCap && element.data.priceModule.marketCap >= 30000) {
             try {
                 companies.push({
                     ticker: element.ticker,

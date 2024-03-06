@@ -10,7 +10,7 @@ const priceModule = (ticker) => new Promise(async (resolve, reject) => {
     const results = await yahooFinance.quoteSummary(ticker, { modules: ["price"] }).catch(error => {
         thisError = true
         let message = ticker + " in priceModule - " + error.toString()
-        logError(message)
+        logError(message, ticker, "priceModule")
         reject({
             priceModuleStatus: "ERROR",
             priceModuleError: message
@@ -52,14 +52,14 @@ const priceModule = (ticker) => new Promise(async (resolve, reject) => {
             resolve(priceModule)
         } catch (error) {
             let message = ticker + " in priceModule - " + error.toString()
-            logError(message)
+            logError(message, ticker, "priceModule")
             reject({
                 priceModuleStatus: "ERROR",
                 priceModuleError: message
             })
         }
     }
-  
+
 })
 
 

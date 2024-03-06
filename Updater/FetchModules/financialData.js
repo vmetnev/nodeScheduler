@@ -9,7 +9,7 @@ const financialData = (ticker) => new Promise(async (resolve, reject) => {
         thisError = true
 
         let message = ticker + " in financialData - " + error.toString()
-        logError(message)
+        logError(message, ticker, "financialData")
         reject({
             financialDataStatus: "ERROR",
             financialDataError: message
@@ -60,7 +60,7 @@ const financialData = (ticker) => new Promise(async (resolve, reject) => {
             resolve(financialData)
         } catch (error) {
             let message = ticker + " in financialData - " + error.toString()
-            logError(message)
+            logError(message, ticker, "financialData")
             reject({
                 financialDataStatus: "ERROR",
                 financialDataError: message

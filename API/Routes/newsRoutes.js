@@ -1,86 +1,82 @@
-const { secEdgarApi } = require('sec-edgar-api')
-const yahooFinance = require('yahoo-finance2').default;
-const fs = require('fs')
-const path = require('path')
+'use strict'
 
+const express = require('express')
+const router = express.Router()
+const path = require('path')
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema
-mongoose.set("strictQuery", false);
 
-const NewsStory = require('../Schemas/NewsStoryModel')
-
-const TickerModel = mongoose.model('shortlistoftickers', new Schema(require('../Schemas/tickerListSchema')))
-const newsTagsPrases = mongoose.model('newstagsphrases', new Schema({
-    phrase: String
+const activeTagModel = mongoose.model('activetags', new Schema({
+    tag: String
 }))
 
+const newsStoryModel = require('../Models/NewsSchemas/NewsStoryModel')
 
 
 
-const database = {
-    uri: "mongodb://127.0.0.1:27017/",
-    name: "scheduler",
-    user: "",
-    password: "",
-    options: {},
-};
-
-database.collectionName = 'newsStories'
-
-const errorNews = mongoose.model(
-    'errorNewsReports',
-    new Schema({
-        ticker: String,
-        error: String,
-        date: {
-            type: Date,
-            default: new Date().toString().slice(0, 24)
-        }
-    })
-)
-
-function mongooseConnect() {
-    mongoose.connect(`${database.uri}${database.name}`, database.options).then(
-        () => {
-            console.log("Mongo connected...")
-        },
-        err => {
-            console.error(err)
-        }
-    )
-}
-
-mongooseConnect()
-
-
-// updateNewsStories()
-
-async function updateNewsStories() {
-    let data = await TickerModel.find({}, 'ticker -_id')
-    console.log(data)
-
-    let phrases = await newsTagsPrases.find({}, '-_id')
-
-    console.log(phrases)
-
-
-    phrases.forEach(phrase => data.push({ ticker: phrase.phrase }))
-    let delay = 0
-    let additionalDelay = 0
-
-    for (let q = 845; q < data.length; q++) {
-        let instance = data[q].ticker
-
-        additionalDelay = (q % 100 === 0) ? 10000 : 0
-
-        delay = delay + 2000 + additionalDelay
-
-        setTimeout(() => {
-            console.log(q)
-            getNewsForText(instance)
-        }, delay)
+router.get('/addActiveTag', async (req, res) => {
+    console.log(req.query)
+    let { ticker } = req.query
+    let target = await TickerModel.findOne({ 'ticker': ticker }, '-__v')
+    console.log(target)
+    if (target) {
+        target = target.toObject()
+        res.json(target)
+    } else {
+        res.json('n.a.')
     }
-}
+})
+
+router.get('/deleteTag', async (req, res) => {
+    console.log(req.query)
+    let { ticker } = req.query
+    let target = await TickerModel.findOne({ 'ticker': ticker }, '-__v')
+    console.log(target)
+    if (target) {
+        target = target.toObject()
+        res.json(target)
+    } else {
+        res.json('n.a.')
+    }
+})
+
+router.get('/getActiveTags', async (req, res) => {
+    console.log('getting Tags')
+    let tags = await activeTagModel.find({}, 'tag -_id')
+    if (tags) {
+        res.json(tags)
+    } else {
+        res.json('n.a.')
+    }
+})
+
+router.get('/getNews', async (req, res) => {
+    console.log('getting news')
+    console.log(req.query)
+    let { text } = req.query
+    let target = await newsStoryModel.find({ mainQuery: text }, '-__v')
+    console.log(target)
+    if (target) {
+        target = target
+        res.json(target)
+    } else {
+        res.json('n.a.')
+    }
+})
+
+
+router.get('/markNews', async (req, res) => {
+    console.log(req.query)
+    let { ticker } = req.query
+    let target = await TickerModel.findOne({ 'ticker': ticker }, '-__v')
+    console.log(target)
+    if (target) {
+        target = target.toObject()
+        res.json(target)
+    } else {
+        res.json('n.a.')
+    }
+})
 
 async function getNewsForText(tag) {
     console.log('tag  ' + tag)
@@ -162,9 +158,7 @@ async function getNewsForText(tag) {
         console.log(tag + "  " + "no results or no news stories")
     }
 
-
-
-
 }
 
-module.exports = updateNewsStories
+
+module.exports = router

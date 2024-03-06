@@ -1,4 +1,3 @@
-
 'use strict'
 
 const express = require('express')
@@ -7,18 +6,18 @@ const path = require('path')
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 
-const ReportModel = require('../Models/ReportModel')
-const dict = require('../Controllers/serviceDict')
-
 let statusModel = require('../Models/StatusModel')
 
 const TickerSchema = require('../Models/TickerSchema')
 getLastTickerDataCollectionName()
 
-let TickerModel = {}
+let TickerModel 
 
 async function getLastTickerDataCollectionName() {
     let statusObject = await statusModel.findOne({})
+    console.log('-----------------')
+    console.log(statusObject.collectionName)
+    console.log('-----------------')
     TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
 }
 
@@ -50,8 +49,6 @@ router.get('/search', async (req, res) => {
         res.json('n.a.')
     }
 })
-
-
 
 module.exports = router
 

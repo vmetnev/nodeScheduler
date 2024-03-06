@@ -47,12 +47,12 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json())
 
-
+app.use('/news', require('./Routes/newsRoutes'))
 
 app.use('/outloader', require('./Routes/excelRoutes'))
 app.use('/outloader', require('./Routes/htmlRoutes'))
 app.use('/outloader', require('./Routes/searchRoutes'))
-app.use('/status', require('./Routes/statusRoutes'))
+
 app.use('/earnings', require('./Routes/earningsDatesRoutes'))
 
 app.listen(3003, function () {

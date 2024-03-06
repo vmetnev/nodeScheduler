@@ -9,7 +9,7 @@ const calendarEvents = (ticker) => new Promise(async (resolve, reject) => {
     const results = await yahooFinance.quoteSummary(ticker, { modules: ["calendarEvents"] }).catch(error => {
         thisError = true
         let message = ticker + " in calendar events - " + error.toString()
-        logError(message,ticker)
+        logError(message,ticker,"calendarEvents")
         reject({
             calendarEventsStatus: "ERROR",
             calendarEventsError: message
@@ -33,7 +33,7 @@ const calendarEvents = (ticker) => new Promise(async (resolve, reject) => {
             resolve(calendarEvents)
         } catch (error) {
             let message = ticker + " in calendar events - " + error.toString()
-            logError(message,ticker)
+            logError(message,ticker,"calendarEvents")
             reject({
                 calendarEventsStatus: "ERROR",
                 calendarEventsError: message

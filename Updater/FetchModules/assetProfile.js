@@ -11,7 +11,7 @@ const assetProfile = (ticker) => new Promise(async (resolve, reject) => {
     const results = await yahooFinance.quoteSummary(ticker, { modules: ["assetProfile"] }).catch(error => {
         thisError = true
         let message = ticker + " in asset profile - " + error.toString()
-        logError(message, ticker)
+        logError(message, ticker,"assetProfile")
         reject({
             assetProfileStatus: "ERROR",
             assetProfileError: message
@@ -35,7 +35,7 @@ const assetProfile = (ticker) => new Promise(async (resolve, reject) => {
             resolve(assetProfile)
         } catch (error) {
             let message = ticker + " in asset profile - " + error.toString()
-            logError(message, ticker)
+            logError(message, ticker,"assetProfile")
             reject({
                 assetProfileStatus: "ERROR",
                 assetProfileError: message

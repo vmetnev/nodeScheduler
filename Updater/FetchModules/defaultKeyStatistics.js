@@ -9,7 +9,7 @@ const defaultKeyStatistics = (ticker) => new Promise(async (resolve, reject) => 
     const results = await yahooFinance.quoteSummary(ticker, { modules: ["defaultKeyStatistics"] }).catch(error => {
         thisError = true
         let message = ticker + " in defaultKeyStatistics - " + error.toString()
-        logError(message)
+        logError(message,ticker,"defaultKeyStatistics")
         reject({
             defaultKeyStatisticsStatus: "ERROR",
             defaultKeyStatisticsError: message
@@ -65,7 +65,7 @@ const defaultKeyStatistics = (ticker) => new Promise(async (resolve, reject) => 
             resolve(defaultKeyStatistics)
         } catch (error) {
             let message = ticker + " in defaultKeyStatistics - " + error.toString()
-            logError(message)
+            logError(message, ticker,'defaultKeyStatistics')
             reject({
                 defaultKeyStatisticsStatus: "ERROR",
                 defaultKeyStatisticsError: message

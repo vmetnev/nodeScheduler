@@ -9,7 +9,7 @@ const earningsTrend = (ticker) => new Promise(async (resolve, reject) => {
         thisError = true
 
         let message = ticker + " in earningsTrend - " + error.toString()
-        logError(message)
+        logError(message,ticker,"earningsTrend")
         reject({
             earningsTrendStatus: "ERROR",
             earningsTrendError: message
@@ -90,7 +90,7 @@ const earningsTrend = (ticker) => new Promise(async (resolve, reject) => {
             resolve(earningsTrend)
         } catch (error) {
             let message = ticker + " in earningsTrend - " + error.toString()
-            logError(message)
+            logError(message,ticker,"earningsTrend")
             reject({
                 earningsTrendStatus: "ERROR",
                 earningsTrendError: message

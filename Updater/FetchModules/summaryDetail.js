@@ -11,7 +11,7 @@ const summaryDetail = (ticker) => new Promise(async (resolve, reject) => {
         thisError = true
 
         let message = ticker + " in summaryDetail - " + error.toString()
-        logError(message)
+        logError(message,ticker,"summaryDetail")
         reject({
             summaryDetailStatus: "ERROR",
             summaryDetailError: message
@@ -55,7 +55,7 @@ const summaryDetail = (ticker) => new Promise(async (resolve, reject) => {
             resolve(summaryDetail)
         } catch (error) {
             let message = ticker + " in summaryDetail - " + error.toString()
-            logError(message)
+            logError(message,ticker,"summaryDetail")
             reject({
                 summaryDetailStatus: "ERROR",
                 summaryDetailError: message

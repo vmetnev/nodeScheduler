@@ -9,7 +9,7 @@ const earningsHistory = (ticker) => new Promise(async (resolve, reject) => {
     const results = await yahooFinance.quoteSummary(ticker, { modules: ["earningsHistory"] }).catch(error => {
         thisError = true
         let message = ticker + " in earningsHistory - " + error.toString()
-        logError(message)
+        logError(message,ticker,"earningsHistory")
         reject({
             earningsHistoryStatus: "ERROR",
             earningsHistoryError: message
@@ -50,7 +50,7 @@ const earningsHistory = (ticker) => new Promise(async (resolve, reject) => {
             resolve(earningsHistory)
         } catch (error) {
             let message = ticker + " in earningsHistory - " + error.toString()
-            logError(message)
+            logError(message,ticker,"earningsHistory")
             reject({
                 earningsHistoryStatus: "ERROR",
                 earningsHistoryError: message

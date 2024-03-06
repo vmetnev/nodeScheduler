@@ -16,7 +16,7 @@ const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
     const queryOptions = { period1: dateMinus5Y, /* ... */ };
     const data = await yahooFinance.historical(ticker, queryOptions).catch(error => {
         let message = ticker + " in 5 year price data - " + error.toString()
-        logError(message)
+        logError(message, ticker, "fiveYearPriceData")
         reject({
             fiveYearPriceDataStatus: "ERROR",
             fiveYearPriceDataError: message
@@ -173,13 +173,15 @@ const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
     catch (error) {
         console.log(error)
         let message = "PPPP" + ticker + " in 5 year price data - " + error.toString()
-        logError(message)
+            , ticker
+
+        logError(message, ticker, "fiveYearPriceData")
         reject({
             fiveYearPriceDataStatus: "ERROR",
             fiveYearPriceDataError: message
         })
     }
- 
+
 })
 
 

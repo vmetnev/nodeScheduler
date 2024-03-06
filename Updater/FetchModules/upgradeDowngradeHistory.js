@@ -11,7 +11,7 @@ const upgradeDowngradeHistory = (ticker) => new Promise(async (resolve, reject) 
         thisError = true
 
         let message = ticker + " in upgradeDowngradeHistory - " + error.toString()
-        logError(message)
+        logError(message,ticker,"upgradeDowngradeHistory")
         reject({
             upgradeDowngradeHistoryStatus: "ERROR",
             upgradeDowngradeHistoryError: message
@@ -31,7 +31,7 @@ const upgradeDowngradeHistory = (ticker) => new Promise(async (resolve, reject) 
             resolve(upgradeDowngradeHistory)
         } catch (error) {
             let message = ticker + " in upgradeDowngradeHistory - " + error.toString()
-            logError(message)
+            logError(message,ticker,"upgradeDowngradeHistory")
             reject({
                 upgradeDowngradeHistoryStatus: "ERROR",
                 upgradeDowngradeHistoryError: message

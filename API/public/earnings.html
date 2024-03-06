@@ -11,17 +11,17 @@
         <table>
             <tr class="table-header">
                 <th class="dates">Dates:</th>
-                <th>Technology</th>
-                <th>Commnications</th>
-                <th>Consumer discretionary</th>
-                <th>Consumer staples</th>
-                <th>Health care</th>
-                <th>Financials</th>
-                <th>Basic materials</th>
-                <th>Industrials</th>
-                <th>Energy</th>
-                <th>Real estate</th>
-                <th>Utilities</th>
+                <th class="sector-name">Technology</th>
+                <th class="sector-name">Commnications</th>
+                <th class="sector-name">Consumer discretionary</th>
+                <th class="sector-name">Consumer staples</th>
+                <th class="sector-name">Health care</th>
+                <th class="sector-name">Financials</th>
+                <th class="sector-name">Basic materials</th>
+                <th class="sector-name">Industrials</th>
+                <th class="sector-name">Energy</th>
+                <th class="sector-name">Real estate</th>
+                <th class="sector-name">Utilities</th>
             </tr>
         </table>
 
@@ -30,6 +30,10 @@
         </table>
 
         <script>
+            Array.from(document.querySelectorAll('.sector-name')).forEach(element=>{
+                element.addEventListener('click',handleSectorNameClick)
+            })
+
             let sectors = [
                 'Technology',
                 'CommunicationServices',
@@ -109,9 +113,11 @@
             getData()
 
             async function getData() {
+                console.log('fetching')
                 let resp = await fetch('http://localhost:3003/earnings/getEarningsDates')
                 resp = await resp.json()
-
+                console.log("------------")
+                console.log(resp)
                 resp.forEach(company => {
                     console.log(company.ticker)
                     let sector = company.sector.replaceAll(' ', "")
@@ -134,7 +140,7 @@
                             let pp = document.createElement('p')
                             pp.classList.add('ticker')
                             pp.textContent = company.ticker
-                            pp.addEventListener('click',handleTickerClick)
+                            pp.addEventListener('click', handleTickerClick)
                             pp.title = company.companyName
                             cell.appendChild(pp)
                         }
@@ -142,10 +148,13 @@
                 });
             }
 
-
-            async function handleTickerClick(evt){
+            async function handleTickerClick(evt) {
                 console.log(evt.target.textContent)
             }
+            function handleSectorNameClick(evt){
+                console.log(evt.target.textContent)
+            }
+
 
         </script>
     </body>
