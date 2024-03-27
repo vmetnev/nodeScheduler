@@ -151,8 +151,13 @@ async function getHTMLElements() {
     document.body.append(earningsDeliveryScript);
 }
 
-
 document.querySelector('.ticker-search-button').addEventListener('click', handleTickerSearchButtpnClick)
+
+if(localStorage.ticker){
+    document.querySelector('.ticker-search-input').value = localStorage.ticker
+    document.querySelector('.ticker-search-button').click()
+}
+
 
 async function handleTickerSearchButtpnClick() {
     let targetTicker = document.querySelector('.ticker-search-input').value
@@ -160,16 +165,33 @@ async function handleTickerSearchButtpnClick() {
     getData(targetTicker)
 }
 
-async function getData(ticker) {
-    let query = await fetch(`/outloader/html/getTickerData?ticker=${ticker}`)
-    let company = await query.json()
+getTickers()
+async function getTickers() {
+    let list = await fetch(`/oneticker/getTickersAndCompanyNames`)
+    list = await list.json()
 
+    let suggestions = []
+    list.forEach(item => {
+        suggestions.push(item.ticker)
+        suggestions.push(item.companyName)
+    })
+
+
+}
+
+
+async function getData(ticker) {
+    localStorage.ticker = ticker
+    let query = await fetch(`/oneticker/getOneTicker?ticker=${ticker}`)
+    let company = await query.json()
+    document.querySelector('.data-date').textContent = company.data.date.slice(4, 25)
+    document.querySelector('.last-price-date').textContent = company.data.fiveYearPriceData.data[company.data.fiveYearPriceData.data.length - 1][0]
     console.log(company)
 
-    query = await fetch(`/outloader/html/getTickerData?ticker=^GSPC`)
+    query = await fetch(`/oneticker/getIndexData?ticker=^GSPC`)
     spx = await query.json()
 
-    query = await fetch(`/outloader/html/getTickerData?ticker=^IXIC`)
+    query = await fetch(`/oneticker/getIndexData?ticker=^IXIC`)
     ccmp = await query.json()
 
     buildKeyInfoTable(company)
@@ -194,13 +216,60 @@ async function getData(ticker) {
 
     console.log('--------------------')
 
+  
+    let chartDataQuery = await fetch('http://127.0.0.1:3008/getChartData?ticker=^GSPC')
+    let chartDataObject = await chartDataQuery.json()
+    generateChartData(chartDataObject)
+
+console.log('-----=========-------------')
+console.log(ticker)
+console.log('-----=========-------------')
+
+    let serverDataForChart = await fetch(`http://127.0.0.1:3008/getChartData?ticker=${ticker}`,)
+    let chartData = await serverDataForChart.json()
+    generateChartData(chartData)
+
+
 }
 
 document.body.addEventListener("keydown", (event) => {
-   if (event.keyCode===13) handleTickerSearchButtpnClick()
+    if (event.keyCode === 13) handleTickerSearchButtpnClick()
 
 })
 
+document.body.addEventListener('click', handleChartButtonClick)
+
+
+function handleChartButtonClick(evt) {
+    if (evt.target.classList.contains('chartButton')) {
+        switch (evt.target.value) { // Select data series depending on period
+            case "5Y":
+                drawChart('5Y')
+                break;
+
+            case "1Y":
+                drawChart('1Y')
+                break;
+
+            case "YTD":
+                drawChart('YTD')
+                break;
+
+            case "6M":
+                drawChart('6M')
+                break;
+
+            case "3M":
+                drawChart('3M')
+                break;
+        }
+        let buttonArr = document.querySelectorAll('.chartButton')
+        Array.from(buttonArr).forEach(button => {
+            if (button.classList.contains('active-button')) button.classList.remove('active-button')
+        })
+        evt.target.classList.add('active-button')
+    }
+}
 
 function goodNumber(num, factor = 'none') {
 
@@ -297,3 +366,4 @@ function goodNumber(num, factor = 'none') {
         return num
     }
 }
+

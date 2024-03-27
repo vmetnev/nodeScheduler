@@ -1,0 +1,100 @@
+body {
+    background-color: lightgray;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+
+    width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.data-data-holder,
+.menu {
+    font-size: 12px;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.ticker-search {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.ticker-search-input {
+    width: 90%;
+}
+
+.ticker-search-button {
+    margin-left: 5px;
+}
+
+.page,
+.line2 {
+    margin-top: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.line2 {
+    margin-top: 0;
+}
+
+
+
+/*  */
+
+
+.chart-area {
+    box-sizing: border-box;
+    width: 500px;
+    height: 300px;
+    margin-left: -60px;
+    margin-top: -25px;
+    z-index: -1;
+    position: relative;
+}
+
+
+.chartButton {
+    margin: 1px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.section-title {
+    display: block;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    color: rgb(32, 55, 100);
+}
+
+.active-button {
+    background-color: rgb(47, 47, 90);
+    color: white;
+    background-color: rgb(47, 47, 90);
+    color: white;
+    border-color: lightgrey;
+    border-radius: 3px;
+}
+
+.chart-area {
+    margin-left: 10px;
+}
+
+.section-title {
+    margin-top: 10px;
+    height: 50px;
+}

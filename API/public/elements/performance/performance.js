@@ -88,6 +88,8 @@ let toColorize = [
 function buildPerformanceTable(obj, spx, ccmp) {
     clearPerformanceTable()
     performanceTargetTicker.textContent = obj.ticker
+    console.log('should be spx')
+    console.log(spx)
 
     performanceTargetTicker1D.textContent = obj.data.priceObject.perf1D
     performanceSpx1D.textContent = spx.data.priceObject.perf1D
@@ -125,13 +127,13 @@ function buildPerformanceTable(obj, spx, ccmp) {
 
 
     performanceTargetTicker52WeekHigh.textContent = obj.data.priceObject.high52Price
-    // performanceSpx52WeekHigh.textContent = goodNumber(spx.data.priceObject.high52Price.toFixed(2))
-    // performanceCcmp52WeekHigh.textContent = goodNumber(ccmp.data.priceObject.high52Price.toFixed(2))
+    performanceSpx52WeekHigh.textContent = goodNumber(spx.data.priceObject.high52Price.toFixed(2))
+    performanceCcmp52WeekHigh.textContent = goodNumber(ccmp.data.priceObject.high52Price.toFixed(2))
 
     toColorize.forEach(item => {
         colorizeCells(item)
     })
-}
+} 
 
 function colorizeCells(cell) {
     let num = parseFloat(cell.textContent.slice(0, cell.textContent.length - 1))

@@ -6,11 +6,10 @@ const logError = require('./logError')
 let output12M = []
 
 const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
-    let thisError = false
+    
     let today = new Date(new Date().toISOString().split('T')[0])
     let dateMinus5Y = (new Date(new Date(today).setDate(new Date(today).getDate() - 366 * 5))).toISOString().split('T')[0]
     let dateMinus12M = (new Date(new Date(today).setDate(new Date(today).getDate() - 368))).toISOString().split('T')[0]
-
 
     ticker = ticker
     const queryOptions = { period1: dateMinus5Y, /* ... */ };
@@ -35,8 +34,6 @@ const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
             }
         }
 
-
-
         let min = data[0].close
         let max = data[0].close
 
@@ -55,7 +52,6 @@ const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
         fiveYearPriceData.fiveYearPriceData.status = 'OK'
 
 
-
         let data12M = output12M
 
         let lastPrice = data12M[data12M.length - 1][1]
@@ -65,14 +61,12 @@ const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
         let previousDayDate = data12M[data12M.length - 2][0]
         let previousDayFullObject = [previousDayDate, previousDayPrice]
 
-
         let dateMinus7D = new Date((new Date(new Date(today).setDate(new Date(today).getDate() - 7))).toISOString().split('T')[0]).toISOString().split('T')[0]
         let dateMinus1M = new Date((new Date(new Date(today).setDate(new Date(today).getDate() - 30))).toISOString().split('T')[0]).toISOString().split('T')[0]
         let dateMinus3M = new Date((new Date(new Date(today).setDate(new Date(today).getDate() - 91))).toISOString().split('T')[0]).toISOString().split('T')[0]
         let dateMinus6M = new Date((new Date(new Date(today).setDate(new Date(today).getDate() - 182))).toISOString().split('T')[0]).toISOString().split('T')[0]
         dateMinus12M = new Date((new Date(new Date(today).setDate(new Date(today).getDate() - 365))).toISOString().split('T')[0]).toISOString().split('T')[0]
         let dateYTD = `${new Date().getFullYear() - 1}-12-31`
-
 
         const { fullObject: dateMinus7DFullObject, date: dateMinus7DDate, price: dateMinus7DPrice } = extractDateAndPrice(dateMinus7D)
         const { fullObject: dateMinus1MFullObject, date: dateMinus1MDate, price: dateMinus1MPrice } = extractDateAndPrice(dateMinus1M)
@@ -81,6 +75,7 @@ const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
         const { fullObject: dateMinus12MFullObject, date: dateMinus12MDate, price: dateMinus12MPrice } = extractDateAndPrice(dateMinus12M)
         const { fullObject: dateYTDFullObject, date: dateYTDDate, price: dateYTDPrice } = extractDateAndPrice(dateYTD)
         const [low52FullObject, low52Date, low52Price, high52FullObject, high52Date, high52Price] = weeks52(data12M)
+        
 
         let perf1D = ((lastPrice / previousDayPrice - 1) * 100).toFixed(2) + "%"
         let perf1W = ((lastPrice / dateMinus7DPrice - 1) * 100).toFixed(2) + "%"
@@ -141,12 +136,15 @@ const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
 
 
         function weeks52(data12M) {
+            
             let lowObj = {}
             let highObj = {}
+            
             lowObj.date = data12M[0][0]
             lowObj.price = parseFloat(data12M[0][1])
             highObj.date = data12M[0][0]
             highObj.price = parseFloat(data12M[0][1])
+
             for (let q = 0; q < data12M.length; q++) {
                 if (data12M[q][1] < lowObj.price) {
                     lowObj.date = data12M[q][0]
@@ -154,9 +152,10 @@ const fiveYearPriceData = (ticker) => new Promise(async (resolve, reject) => {
                 }
                 if (data12M[q][1] > highObj.price) {
                     highObj.date = data12M[q][0]
-                    highObj.price = parseFloat(data[q][1])
+                    highObj.price = parseFloat(data12M[q][1])
                 }
             }
+            
             return [
                 lowObj,
                 lowObj.date,

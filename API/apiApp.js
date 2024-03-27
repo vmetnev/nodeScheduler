@@ -12,6 +12,8 @@ const corsOptions = {
     optionSuccessStatus: 200,
 }
 
+const getPriceRange = require('./Loaders/priceRangeQueryModule')
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 mongoose.set("strictQuery", false);
@@ -47,6 +49,10 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json())
 
+app.use('/oneticker', require('./Routes/oneTickerRoutes'))
+
+
+
 app.use('/news', require('./Routes/newsRoutes'))
 
 app.use('/outloader', require('./Routes/excelRoutes'))
@@ -54,6 +60,24 @@ app.use('/outloader', require('./Routes/htmlRoutes'))
 app.use('/outloader', require('./Routes/searchRoutes'))
 
 app.use('/earnings', require('./Routes/earningsDatesRoutes'))
+app.use('/performance', require('./Routes/performanceRoutes'))
+
+
+app.get('/getChartData', async (req, res) => {
+    let targetTicker = req.query.ticker
+    console.log(targetTicker)
+
+    let indexTicker = (targetTicker === "^GSPC") ? "^IXIC" : "^GSPC"
+
+    console.log(targetTicker)
+    console.log(indexTicker)
+
+    let tickerPriceData = await getPriceRange(targetTicker)
+    let indexPriceData = await getPriceRange(indexTicker)
+
+    res.send([{ targetTicker: targetTicker, tickerData: tickerPriceData }, { indexTicker: indexTicker, indexData: indexPriceData }])
+
+})
 
 app.listen(3003, function () {
     console.log('server started at post 3003')

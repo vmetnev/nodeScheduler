@@ -1,0 +1,54 @@
+body {
+    font-size: 10px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid lightgrey;
+    padding: 3px;
+}
+
+.holder {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.col {
+    width: 450px;
+    border: 1px solid lightgray;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.button-holder {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.lastpricedate{
+    font-weight: normal;
+}

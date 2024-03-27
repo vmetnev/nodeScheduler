@@ -15,6 +15,6 @@ rule.hour = 7;
 rule.minute = 0;
 rule.second = 0;
 
-var timeEverySecond = schedule.scheduleJob(rule, function () {
+schedule.scheduleJob(rule, function () {
   updateSearchTickerData()
 });

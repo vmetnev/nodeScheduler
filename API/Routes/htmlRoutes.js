@@ -10,6 +10,7 @@ const ReportModel = require('../Models/ReportModel')
 const dict = require('../Controllers/serviceDict')
 
 let statusModel = require('../Models/StatusModel')
+const getOneTicker = require('../Loaders/loadOneTicker')
 
 const TickerSchema = require('../Models/TickerSchema')
 getLastTickerDataCollectionName()
@@ -20,14 +21,9 @@ let TickerModel = {}
 async function getLastTickerDataCollectionName() {
     let statusObject = await statusModel.findOne({})
     console.log(statusObject.collectionName)
-    TickerModel = mongoose.model('tickerdatatests', TickerSchema)
-    
-
-    // TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
+    TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
 }
-
-
-
+ 
 router.get('/html/all', async (req, res) => {
 
     console.log(req.query)
@@ -54,6 +50,7 @@ router.get('/html/getTickerData', async (req, res) => {
     console.log(req.query)
     let { ticker } = req.query
     let target = await TickerModel.findOne({ 'ticker': ticker }, '-__v')
+    console.log('ewfrwerwerwer')
     console.log(target)
     if (target) {
         target = target.toObject()
@@ -98,6 +95,17 @@ router.post('/html/service', async (req, res) => {
 })
 
 router.post('/html/singlepoint', require("../singlePointers/priceModule"))
+
+router.get('/html/getOneTicker', async (req, res) => {
+    console.log(req.query)    
+    let target = await getOneTicker(req.query.ticker)    
+        if (target) {    
+        res.json(target)
+    } else {
+        res.json('n.a.')
+    }
+})
+
 
 
 module.exports = router

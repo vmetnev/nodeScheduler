@@ -276,5 +276,15 @@ function goodNumber(num, factor = 'none') {
 
 function handleTickerPageButton(evt) {
     let ticker = (evt.target.closest('.company-heading')).querySelector('.company-ticker').textContent
+    console.log('lalala')
     console.log(ticker)
+
+    
+    localStorage.ticker=ticker
+
+    console.log(localStorage)
+    
+    window.location.assign('getOneTicker.html')
+
+
 }

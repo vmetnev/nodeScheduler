@@ -12,8 +12,6 @@ const activeTagModel = mongoose.model('activetags', new Schema({
 
 const newsStoryModel = require('../Models/NewsSchemas/NewsStoryModel')
 
-
-
 router.get('/addActiveTag', async (req, res) => {
     console.log(req.query)
     let { ticker } = req.query
@@ -63,7 +61,6 @@ router.get('/getNews', async (req, res) => {
         res.json('n.a.')
     }
 })
-
 
 router.get('/markNews', async (req, res) => {
     console.log(req.query)
@@ -159,6 +156,5 @@ async function getNewsForText(tag) {
     }
 
 }
-
 
 module.exports = router

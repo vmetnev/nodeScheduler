@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="performance.css">
+        <title>Performance</title>
+    </head>
+
+    <body>
+        <div class="main">
+            <h3>Last price date: <span class="lastpricedate"></span></h3>
+            <table class="table-indices">
+
+                <h3>Indices</h3>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Name</th>
+                    <th>Last price</th>
+                    <th>Perf 1Y</th>
+                    <th>Perf YTD</th>
+                    <th>Perf 6M</th>
+                    <th>Perf 3M</th>
+                    <th>Perf 1M</th>
+                    <th>Perf 1W</th>
+                    <th>Perf 1D</th>
+                </tr>
+
+                <tr class="spx">
+                    <td>^GSPC</td>
+                    <td>S&P 500</td>
+                    <td class="sandp-last-price right"></td>
+                    <td class="sandp-1y right"></td>
+                    <td class="sandp-ytd right"></td>
+                    <td class="sandp-6m right"></td>
+                    <td class="sandp-3m right"></td>
+                    <td class="sandp-1m right"></td>
+                    <td class="sandp-1w right"></td>
+                    <td class="sandp-1d right"></td>
+                </tr>
+                <tr class="ccmp">
+                    <td>^IXIC</td>
+                    <td>NASDAQ Composite</td>
+                    <td class="nasdaq-last-price right"></td>
+                    <td class="nasdaq-1y right"></td>
+                    <td class="nasdaq-ytd right"></td>
+                    <td class="nasdaq-6m right"></td>
+                    <td class="nasdaq-3m right"></td>
+                    <td class="nasdaq-1m right"></td>
+                    <td class="nasdaq-1w right"></td>
+                    <td class="nasdaq-1d right"></td>
+                </tr>
+
+
+
+            </table>
+
+            <h3>Sector ETFs</h3>
+            <div class="button-holder">
+                <button class="etf-perf1y">1Y</button>
+                <button class="etf-perfytd">YTD</button>
+                <button class="etf-perf6m">6M</button>
+                <button class="etf-perf3m">3M</button>
+                <button class="etf-perf1m">1M</button>
+                <button class="etf-perf1w">1W</button>
+                <button class="etf-perf1d">1D</button>
+            </div>
+
+            <table class="sector-etf-table">
+                <tr>
+                    <th>Ticker</th>
+                    <th>Name</th>
+                    <th>Last price</th>
+                    <th>Perf 1Y</th>
+                    <th>Perf YTD</th>
+                    <th>Perf 6M</th>
+                    <th>Perf 3M</th>
+                    <th>Perf 1M</th>
+                    <th>Perf 1W</th>
+                    <th>Perf 1D</th>
+                </tr>
+
+               
+            </table>
+
+            <div class="holder">
+                <div class="sectors col">
+
+                </div>
+
+                <div class="companies col">
+                    <div class="button-holder">
+                        <button class="mc">By MC</button>
+                        <button class="perf1y">1Y</button>
+                        <button class="ytd">YTD</button>
+                        <button class="perf6m">6M</button>
+                        <button class="perf3m">3M</button>
+                        <button class="perf1m">1M</button>
+                        <button class="perf1w">1W</button>
+                        <button class="perf1d">1D</button>
+                        <div class="companies-table-holder"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <script src="performance.js"></script>
+    </body>
+
+</html>

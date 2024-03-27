@@ -11,15 +11,15 @@ let statusModel = require('../Models/StatusModel')
 const TickerSchema = require('../Models/TickerSchema')
 getLastTickerDataCollectionName()
 
-let TickerModel 
+let TickerModel  = mongoose.model('tickerdata2024-03-11',TickerSchema)
 
 async function getLastTickerDataCollectionName() {
     let statusObject = await statusModel.findOne({})
     console.log('-----------------')
     console.log(statusObject.collectionName)
     console.log('-----------------')
-    TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
-}
+    // TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
+} 
 
 router.get('/search', async (req, res) => {
     console.log('here')

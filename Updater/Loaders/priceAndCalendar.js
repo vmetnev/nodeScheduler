@@ -1,8 +1,8 @@
 const yahooFinance = require('yahoo-finance2').default;
 const fs = require('fs')
 const path = require('path')
-const LoadTicker = require('./Models/LoadTickerModel')
-const status = require('./Controllers/statusController')
+const LoadTickerSchema = require('../Schemas/tickerListSchema')
+
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -54,8 +54,8 @@ const ErrorLog = mongoose.model(
 updateSearchTickerData()
 
 async function updateSearchTickerData() {
-    await status.setStatusObject()
 
+    let LoadTicker = mongoose.model('shortlistoftickers', LoadTickerSchema)
     let data = await LoadTicker.find({}, 'ticker -_id')
 
     console.log(data.length)
@@ -63,12 +63,12 @@ async function updateSearchTickerData() {
     // Delay and setting out timeout queries
     let delay = 0
     let ifEnd = false
-    for (let q = 1; q < data.length; q++) {
+    for (let q = 0; q < data.length; q++) {
         let instance = data[q]
 
         let contender = {}
         contender.ticker = instance.ticker
-        delay = delay + 1000 + 1000 * Math.random()
+        delay = delay + 1000 + 500 * Math.random()
         if (q % 50 === 0) delay = delay + 7500
         if (q === data.length - 1) ifEnd = true
         setTimeout(() => {
@@ -88,7 +88,9 @@ async function getAllData(input, q, ifEnd) {
     let ticker = input.ticker
 
     console.log(ticker)
-    status.addQueredTicker(ticker)
+
+
+
 
     tickerInstance.ticker = ticker
     tickerInstance.date = new Date().toString()
@@ -313,6 +315,7 @@ async function getAllData(input, q, ifEnd) {
                 lowObj.price = parseFloat(data12M[0][1])
                 highObj.date = data12M[0][0]
                 highObj.price = parseFloat(data12M[0][1])
+
                 for (let q = 0; q < data12M.length; q++) {
                     if (data12M[q][1] < lowObj.price) {
                         lowObj.date = data12M[q][0]
@@ -320,7 +323,7 @@ async function getAllData(input, q, ifEnd) {
                     }
                     if (data12M[q][1] > highObj.price) {
                         highObj.date = data12M[q][0]
-                        highObj.price = parseFloat(data[q][1])
+                        highObj.price = parseFloat(data12M[q][1])
                     }
                 }
                 return [
@@ -407,7 +410,6 @@ async function getAllData(input, q, ifEnd) {
         }
     })
 
-
     //---------------------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------------------
@@ -418,18 +420,18 @@ async function getAllData(input, q, ifEnd) {
             message: message
         })
 
-        await status.addError(message)
-        await status.addErrorTicker(ticker)
+
 
         errorMessage.save().then(data => {
 
         })
     }
 
-    const promises = [        
+    const promises = [
         calendarEvents,
-        fiveYearPriceData,        
-        priceModule,       
+        fiveYearPriceData,
+        priceModule,
+        assetProfile
     ]
 
     Promise.allSettled(promises).then((results) => {
@@ -457,10 +459,10 @@ async function getAllData(input, q, ifEnd) {
         let ticker = new Ticker()
         ticker.ticker = tickerInstance.ticker
         ticker.data = tickerInstance
-        ticker.save()
-        if (ifEnd) status.finish()
+        ticker.save().catch(error => console.log(error))
+
     }
-    );
+    ).catch(error => { console.log(error) });
 }
 
 

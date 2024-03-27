@@ -9,7 +9,10 @@ mongoose.set("strictQuery", false);
 
 const NewsStory = require('../Schemas/NewsStoryModel')
 
-const TickerModel = mongoose.model('shortlistoftickers', new Schema(require('../Schemas/tickerListSchema')))
+
+const TickerModel = mongoose.model('shortlistoftickers', require('../Schemas/tickerListSchema'))
+
+
 const newsTagsPrases = mongoose.model('newstagsphrases', new Schema({
     phrase: String
 }))
@@ -68,7 +71,7 @@ async function updateNewsStories() {
     let delay = 0
     let additionalDelay = 0
 
-    for (let q = 845; q < data.length; q++) {
+    for (let q = 0; q < data.length; q++) {
         let instance = data[q].ticker
 
         additionalDelay = (q % 100 === 0) ? 10000 : 0

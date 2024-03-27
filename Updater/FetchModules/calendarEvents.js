@@ -5,16 +5,20 @@ const logError = require('./logError')
 
 
 const calendarEvents = (ticker) => new Promise(async (resolve, reject) => {
-    let thisError = false    
+    let thisError = false
+    
     const results = await yahooFinance.quoteSummary(ticker, { modules: ["calendarEvents"] }).catch(error => {
         thisError = true
         let message = ticker + " in calendar events - " + error.toString()
-        logError(message,ticker,"calendarEvents")
+        logError(message, ticker, "calendarEvents")
         reject({
             calendarEventsStatus: "ERROR",
             calendarEventsError: message
         })
     })
+
+    
+    
 
     if (!thisError) {
         try {
@@ -30,10 +34,11 @@ const calendarEvents = (ticker) => new Promise(async (resolve, reject) => {
             structure.revenueHigh = data.revenueHigh
             structure.status = "OK"
             calendarEvents.calendarEvents = Object.assign({}, structure)
+            
             resolve(calendarEvents)
         } catch (error) {
             let message = ticker + " in calendar events - " + error.toString()
-            logError(message,ticker,"calendarEvents")
+            logError(message, ticker, "calendarEvents")
             reject({
                 calendarEventsStatus: "ERROR",
                 calendarEventsError: message

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Get one ticker</title>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link rel="stylesheet" href="getOneTicker.css">
+    </head>
+
+    <body>
+        <main class="main">
+            <a class="menu" href="search.html">Return to search</a>
+
+            <div class="ticker-search">
+                <input class="ticker-search-input" type="text">
+                <input class="ticker-search-button" type="button" value="Search">
+            </div>
+            <div class="data-data-holder"><strong>YF query date: </strong><span class="data-date"></span></div>
+            <div class="data-data-holder"><strong>Last price date: </strong><span class="last-price-date"></span></div>
+            <div class="page">
+
+            </div>
+            <div class="line2">
+            </div>
+        </main>
+
+        <div class="row">
+            <div class="area">
+                <h4 class="section-title chart-area_title">
+                    <input class="chartButton active-button" type="button" value="5Y">
+                    <input type="button" class="chartButton" value="1Y">
+                    <input type="button" class="chartButton" value="YTD">
+                    <input type="button" class="chartButton" value="6M">
+                    <input type="button" class="chartButton" value="3M">
+                    <span class="chart-area-title">SPX</span>
+                    chart: </h4>
+
+
+                <div class="chart-area curve_chart" style="width: 500px; height: 350px">
+                </div>
+            </div>
+        </div>
+
+        <script src="dates.js"></script>
+        <script src="chart.js"></script>
+        <script src="getOneTicker.js"></script>
+    </body>
+
+</html>

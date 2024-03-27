@@ -48,10 +48,8 @@ const summaryDetail = (ticker) => new Promise(async (resolve, reject) => {
             structure.trailingAnnualDividendYield = data.trailingAnnualDividendYield
             structure.trailingPE = data.trailingPE
             structure.twoHundredDayAverage = data.twoHundredDayAverage
-
-
             structure.status = "OK"
-            summaryDetail.summaryDetail = Object.assign({}, structure)
+            summaryDetail.summaryDetail = Object.assign({}, structure)            
             resolve(summaryDetail)
         } catch (error) {
             let message = ticker + " in summaryDetail - " + error.toString()

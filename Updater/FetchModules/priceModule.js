@@ -48,7 +48,7 @@ const priceModule = (ticker) => new Promise(async (resolve, reject) => {
             structure.marketCap = data.marketCap
 
             structure.status = "OK"
-            priceModule.priceModule = Object.assign({}, structure)
+            priceModule.priceModule = Object.assign({}, structure)            
             resolve(priceModule)
         } catch (error) {
             let message = ticker + " in priceModule - " + error.toString()

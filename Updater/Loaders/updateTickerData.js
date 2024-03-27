@@ -4,6 +4,8 @@ const path = require('path')
 const updateNewsStories = require('./updateNewsStories')
 const logError = require('../FetchModules/logError')
 
+const process = require('node:process');
+
 // Adding fetch modules
 const assetProfile = require('../FetchModules/assetProfile')
 const calendarEvents = require('../FetchModules/calendarEvents')
@@ -28,7 +30,7 @@ mongooseConnect()
 
 const collectionNameForTickerData = `tickerData${new Date().toISOString().slice(0, 10)}`
 const collectionNameForErrorLog = `errorTickerData${new Date().toISOString().slice(0, 10)}`
-const collectionNameForListOfTickerToLoad = 'shortlistoftickers'
+// const collectionNameForListOfTickerToLoad = 'shortlistoftickers'
 
 const Ticker = mongoose.model(collectionNameForTickerData,
     new Schema({
@@ -38,14 +40,14 @@ const Ticker = mongoose.model(collectionNameForTickerData,
     })
 )
 
-const listOfTickers = mongoose.model(collectionNameForListOfTickerToLoad, tickerListSchema)
+let thisListOfTickers = mongoose.model('shortlistoftickers', tickerListSchema)
 
 updateSearchTickerData()
 
 async function updateSearchTickerData() {
     await status.setStatusObject()
 
-    let data = await listOfTickers.find({}, 'ticker tickerType -_id')
+    let data = await thisListOfTickers.find({}, 'ticker tickerType -_id')
 
     console.log(`Total number of tickers to be served = ${data.length}`)
 
@@ -54,8 +56,8 @@ async function updateSearchTickerData() {
         let ticker = data[q].ticker
         let tickerType = data[q].tickerType
 
-        delay = delay + 4000 + 1000 * Math.random()
-        if (q % 50 === 0) delay = delay + 15000
+        delay = delay + 2000 + 1000 * Math.random()
+        if (q % 50 === 0) delay = delay + 7500
 
         setTimeout(() => {
             getAllData(ticker, q, data.length - 1)
@@ -134,5 +136,9 @@ async function getAllData(ticker, q, lastElementIndex) {
     });
 }
 
+process.on('unhandledRejection', (reason, promise) => {
+    console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+    // Application specific logging, throwing an error, or other logic here
+});
 
 module.exports = updateSearchTickerData

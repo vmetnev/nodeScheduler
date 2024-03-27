@@ -44,5 +44,4 @@ const assetProfile = (ticker) => new Promise(async (resolve, reject) => {
     }
 })
 
-
 module.exports = assetProfile
