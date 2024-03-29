@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 
 const TickerSchema = require('../Models/TickerSchema')
-let TickerModel = mongoose.model('priceandcalendaronly2024-03-26', TickerSchema)
+let TickerModel = mongoose.model('priceandcalendaronly2024-03-28', TickerSchema)
 
 router.get('/allData', async (req, res) => {
     console.log('performance all route')

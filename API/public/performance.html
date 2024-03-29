@@ -81,15 +81,31 @@
                     <th>Perf 1D</th>
                 </tr>
 
-               
+
             </table>
 
             <div class="holder">
                 <div class="sectors col">
 
+                    <table class="sectors-left-table">
+                        <tr>
+                            <th>Sector</th>
+                            <th>Industry</th>
+                            <th>MC, USD mn</th>
+                            <th>No of companies</th>
+                            <th>Open</th>
+                            <th>View</th>
+                        </tr>
+                    </table>
+
+                    <div class="industries">
+                        <h3 class="view-industries">Industries by sector:</h3>
+                    </div>
+
                 </div>
 
                 <div class="companies col">
+                    <div class="sector-or-industry"></div>
                     <div class="button-holder">
                         <button class="mc">By MC</button>
                         <button class="perf1y">1Y</button>
@@ -101,11 +117,56 @@
                         <button class="perf1d">1D</button>
                         <div class="companies-table-holder"></div>
                     </div>
+                    <table class="right-performance-table">
+                        <tr>
+                            <th>Ticker</th>
+                            <th>Name</th>
+                            <th>MC</th>
+                            <th>Last price</th>
+                            <th>Perf 1Y</th>
+                            <th>Perf YTD</th>
+                            <th>Perf 6M</th>
+                            <th>Perf 3M</th>
+                            <th>Perf 1M</th>
+                            <th>Perf 1W</th>
+                            <th>Perf 1D</th>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
 
         </div>
+
+        <template id="sector-template">
+            <div class="sector-second">
+                <div class="sector-heading">
+                    <div class="sector-heading-element sector-heading-element-name"><span class="sector-span sector-name"></span></div>
+                    <div class="sector-heading-element"><span class="sector-span sector-mc"></span></div>
+                    <div class="sector-heading-element"># comp: <span
+                            class="sector-span sector-companies-count"></span></div>
+                    <button class="sector-open-close">Open</button>
+                </div>
+                <div class="sector-industry-holder"></div>
+            </div>
+        </template>
+
+        <template id="industry-template">
+            <div class="industry">
+                <div class="industry-heading">
+                    <div class="industry-heading-element industry-heading-element-name">        <span class="industry-span industry-name"></span>
+                    </div>
+                    <div class="industry-heading-element">MC: <span class="industry-span industry-mc"></span></div>
+                    <div class="industry-heading-element"># of comp:<span
+                            class="industry-span industry-companies-count"></span></div>
+                    <button class="industry-view-button">View</button>
+                </div>
+                <div class="industry-companies-holder"></div>
+            </div>
+        </template>
+
+
+
         <script src="performance.js"></script>
     </body>
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+
+        <div class="holder">
+            <div class="first">pop</div>
+            <div class="second">corn</div>
+            <button class="btn">Open</button>
+        </div>
+
+    </body>
+
+    <style>
+        .first,
+        .second,
+        .holder {
+            outline: 1px solid red;
+        }
+
+        .holder {
+            display: flex;
+            flex-direction: row;
+            gap:20px;
+            font-size: 10px;
+        }
+
+        .first,
+        .second{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+    </style>
+
+</html>

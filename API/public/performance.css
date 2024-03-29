@@ -20,7 +20,6 @@ td {
 }
 
 .col {
-    width: 450px;
     border: 1px solid lightgray;
 }
 
@@ -49,6 +48,60 @@ td {
     margin-bottom: 10px;
 }
 
-.lastpricedate{
+.lastpricedate {
     font-weight: normal;
+}
+
+button {
+    font-size: 12px;
+}
+
+.main {
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.sector-or-industry {
+    font-size: 14px;
+    font-weight: bold;
+    color: blue;
+}
+
+.sector-second {
+    margin-bottom: 5px;
+}
+
+.sector-heading-element,
+.industry-heading-element {
+    width: 120px;
+    padding-top:3px;
+  
+}
+
+
+
+.sector-heading{
+    background-color: rgb(217, 218, 219);
+    font-weight: bold;
+}
+.sector-heading,
+.industry-heading {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin:5px;
+    padding:2px;
+ 
+}
+
+.industry-heading-element-name,.sector-heading-element-name{
+    width:200px;
+}
+
+.industry-span{
+    padding-left:10px;
+}
+
+.hidden{
+    display:none;
 }
