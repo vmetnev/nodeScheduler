@@ -153,7 +153,7 @@ async function getHTMLElements() {
 
 document.querySelector('.ticker-search-button').addEventListener('click', handleTickerSearchButtpnClick)
 
-if(localStorage.ticker){
+if (localStorage.ticker) {
     document.querySelector('.ticker-search-input').value = localStorage.ticker
     document.querySelector('.ticker-search-button').click()
 }
@@ -216,16 +216,16 @@ async function getData(ticker) {
 
     console.log('--------------------')
 
-  
-    let chartDataQuery = await fetch('http://127.0.0.1:3008/getChartData?ticker=^GSPC')
+
+    let chartDataQuery = await fetch('http://127.0.0.1:3003/getChartData?ticker=^GSPC')
     let chartDataObject = await chartDataQuery.json()
     generateChartData(chartDataObject)
 
-console.log('-----=========-------------')
-console.log(ticker)
-console.log('-----=========-------------')
+    console.log('-----=========-------------')
+    console.log(ticker)
+    console.log('-----=========-------------')
 
-    let serverDataForChart = await fetch(`http://127.0.0.1:3008/getChartData?ticker=${ticker}`,)
+    let serverDataForChart = await fetch(`http://127.0.0.1:3003/getChartData?ticker=${ticker}`,)
     let chartData = await serverDataForChart.json()
     generateChartData(chartData)
 

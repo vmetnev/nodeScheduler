@@ -10,7 +10,8 @@ let dividendYield = document.querySelector('.dividendYield')
 function buildValuationTable(obj) {
     evToSales.textContent = obj.data.defaultKeyStatistics.enterpriseToRevenue.toFixed(2)
     evToEBITDA.textContent = obj.data.defaultKeyStatistics.enterpriseToEbitda.toFixed(2)
-    trailingPE.textContent = obj.data.summaryDetail.trailingPE.toFixed(2)
+    console.log(obj.data.summaryDetail.trailingPE)
+    trailingPE.textContent = (obj.data.summaryDetail.trailingPE) ? obj.data.summaryDetail.trailingPE.toFixed(2) :"n.a."
     forwardPE.textContent = obj.data.defaultKeyStatistics.forwardPE.toFixed(2)
     dividendYield.textContent = (obj.data.summaryDetail.dividendYield * 100).toFixed(2) + "%"
 }

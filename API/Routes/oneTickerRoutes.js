@@ -16,18 +16,18 @@ const database = {
     options: {},
 };
 
-function mongooseConnect() {
-    mongoose.connect(`${database.uri}${database.name}`, database.options).then(
-        () => {
-            console.log("Mongo connected...")
-        },
-        err => {
-            console.error(err)
-        }
-    )
-}
+// function mongooseConnect() {
+//     mongoose.connect(`${database.uri}${database.name}`, database.options).then(
+//         () => {
+//             console.log("Mongo connected...")
+//         },
+//         err => {
+//             console.error(err)
+//         }
+//     )
+// }
 
-mongooseConnect()
+// // mongooseConnect()
 
 database.collectionName = 'shortlistoftickers'
 

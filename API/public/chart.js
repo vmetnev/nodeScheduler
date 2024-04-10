@@ -146,6 +146,9 @@ function generateChartData(chartDataObject) {
     day.push(chartDataObject[0].targetTicker + " (left)")
     day.push(chartDataObject[1].indexTicker + " (right)")
 
+
+    document.querySelector('.chart-area-title').textContent = chartDataObject[0].targetTicker
+
     chartData.push(day)
 
     chartData1Y.push(day)

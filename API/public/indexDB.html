@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            const request = indexedDB.open("library");
+            let db;
+
+            request.onupgradeneeded = function () {
+
+                const db = request.result;
+                const store = db.createObjectStore("books", {
+                    keyPath: "isbn"
+                });
+
+                const titleIndex = store.createIndex("by_title", "title", {
+                    unique: true
+                });
+                const authorIndex = store.createIndex("by_author", "author");
+
+
+
+                // store.put({
+                //     title: "Quarry Memories2",
+                //     author: "Fred",
+                //     isbn: 123456
+                // });
+                // store.put({
+                //     title: "Water Buffaloes2",
+                //     author: "Fred",
+                //     isbn: 234567
+                // });
+                // store.put({
+                //     title: "Bedrock Nights2",
+                //     author: "Barney",
+                //     isbn: 345678
+                // });
+
+                store.put({
+                    title: "Bedroceek Nights2",
+                    author: "Barney43",
+                    isbn: 34523678
+                });
+
+                store.put({
+                    title: "Bedroceek",
+                    author: "Bare",
+                    isbn: 3452367238
+                });
+            };
+
+            request.onsuccess = function () {
+                db = request.result;
+
+                const tx = db.transaction(["books"], "readonly");
+                const store = tx.objectStore("books");
+
+                const getRequest = store.get(1);
+
+                getRequest.onsuccess = function (event) {
+                    console.log("Data read:", event);
+                };
+
+
+            };
+        </script>
+    </body>
+
+</html>

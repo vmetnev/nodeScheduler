@@ -10,24 +10,24 @@ const database = {
     user: "",
     password: "",
     options: {},
-};
+}; 
 
-const status = require('./StatusModel')
+// const status = require('./StatusModel')
 
 
-function mongooseConnect() {
-    mongoose.connect(`${database.uri}${database.name}`, database.options).then(
-        () => {
-            console.log("Mongo connected...")
-            // getCollectionNameFromStatus()
-        },
-        err => {
-            console.error(err)
-        }
-    )
-}
+// function mongooseConnect() {
+//     mongoose.connect(`${database.uri}${database.name}`, database.options).then(
+//         () => {
+//             console.log("Mongo connected...")
+//             // getCollectionNameFromStatus()
+//         },
+//         err => {
+//             console.error(err)
+//         }
+//     )
+// }
 
-mongooseConnect()
+// mongooseConnect()
 
 
 // const status = require('./StatusModel')

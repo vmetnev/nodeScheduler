@@ -94,10 +94,19 @@ async function getPerformanceData() {
     console.log(resp)
     console.log('fentch completed')
 
+    localStorage.setItem('collectionName', JSON.stringify(resp.collectionName))
+
+    resp.data.forEach(company => localStorage.setItem(company.ticker, JSON.stringify(company)))
+
+
+    document.querySelector('.collection-name').textContent = "  " + resp.collectionName
+
     // make flat structure
     resp.data.forEach(company => companies.push(makeFlat(company)))
 
     console.log(companies[0])
+
+    localStorage.companies = companies.toString()
 
     let spx = companies.find(obj => { return obj.ticker === "^GSPC" })
     let ccmp = companies.find(obj => { return obj.ticker === "^IXIC" })
@@ -236,6 +245,7 @@ function makeSectorETFs(arr) {
 function makeSPX(obj) {
 
     document.querySelector('.lastpricedate').textContent = obj.lastPriceDate
+
 
     if (typeof obj.lastPrice === "number") {
         document.querySelector('.sandp-last-price').textContent = obj.lastPrice.toFixed(2)
@@ -429,7 +439,8 @@ function makeFlat(company) {
     instance.previousDayPrice = (company.data.priceObject?.previousDayPrice) ? company.data.priceObject.previousDayPrice : "n.a."
 
     // Data Five Year Price Data
-    instance.fiveYearPriceData = (company.data?.fiveYearPriceData) ? company.data.fiveYearPriceData : "n.a."
+    // instance.fiveYearPriceData = (company.data?.fiveYearPriceData) ? company.data.fiveYearPriceData : "n.a."
+
     return instance
 }
 
@@ -527,7 +538,6 @@ function showSectorsAndIndustries() {
             classNameSector = "na"
         }
         row.classList.add(classNameSector)
-
         row.appendChild(td)
         // Placeholder for industry
         td = document.createElement('td')
@@ -535,10 +545,7 @@ function showSectorsAndIndustries() {
         row.appendChild(td)
         // MC
         td = document.createElement('td')
-
         if (typeof sector.mc === "number") td.innerHTML = goodNumber(sector.mc)
-
-
         td.classList.add('right')
         row.appendChild(td)
         // No of companies
@@ -560,14 +567,9 @@ function showSectorsAndIndustries() {
         button.addEventListener('click', handleViewSectorClick)
         td.appendChild(button)
         row.appendChild(td)
-
-
         document.querySelector('.sectors-left-table').appendChild(row)
     })
-
-
     makeIndustries(sectors)
-
 }
 
 function makeIndustries(sectors) {
@@ -609,8 +611,6 @@ function viewIndustryOnTheRight(evt) {
     handleViewIndustry(targetSector, targetIndustry)
 }
 
-
-
 function sectorOpenClose(evt) {
     console.log('sector-open-close')
     let target = evt.target.closest('.sector-second').querySelector('.sector-industry-holder')
@@ -623,8 +623,6 @@ function sectorOpenClose(evt) {
     }
 
 }
-
-
 
 function handleOpenSectorClick(evt) {
     console.log('handleOpenSectorClick')
@@ -664,7 +662,6 @@ function handleViewSectorClick(evt) {
 
 }
 
-
 function handleViewIndustry(sectorName, industryName) {
     console.log('handleViewSector')
     console.log('------------')
@@ -694,12 +691,15 @@ function handleViewIndustry(sectorName, industryName) {
         instance.perf1D = industryObject.listOfCompaniesObjects[q].perf1D
         rightTableObject.push(instance)
     }
-
     makeRightTable(rightTableObject)
-
 }
 
-
+function handleTickerClick(evt) {
+    let targetTicker = evt.target.innerText
+    console.log(targetTicker)
+    localStorage.ticker = targetTicker
+    window.location.assign('getOneTicker.html')
+}
 
 function makeRightTable(rightTableObject) {
 
@@ -712,6 +712,8 @@ function makeRightTable(rightTableObject) {
         // ticker
         let td = document.createElement('td')
         td.classList.add('left')
+        td.classList.add('.ticker')
+        td.addEventListener('click', handleTickerClick)
         if (company.ticker) td.innerHTML = company.ticker
         row.appendChild(td)
         // company name

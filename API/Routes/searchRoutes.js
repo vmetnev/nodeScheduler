@@ -14,13 +14,9 @@ getLastTickerDataCollectionName()
 let TickerModel  = mongoose.model('tickerdata2024-03-11',TickerSchema)
 
 async function getLastTickerDataCollectionName() {
-    let statusObject = await statusModel.findOne({})
-    console.log('-----------------')
-    console.log(statusObject.collectionName)
-    console.log('-----------------')
-    // TickerModel = mongoose.model(statusObject.collectionName, TickerSchema)
+    let statusObject = await statusModel.findOne({}) 
 } 
-
+ 
 router.get('/search', async (req, res) => {
     console.log('here')
     let dataToGet = 'ticker data.priceModule.longName data.assetProfile.sector data.assetProfile.industry data.assetProfile.longBusinessSummary data.priceModule.marketCap -_id'

@@ -11,17 +11,17 @@
         <table>
             <tr class="table-header">
                 <th class="dates">Dates:</th>
-                <th class="sector-name">Technology</th>
-                <th class="sector-name">Commnications</th>
-                <th class="sector-name">Consumer discretionary</th>
-                <th class="sector-name">Consumer staples</th>
-                <th class="sector-name">Health care</th>
-                <th class="sector-name">Financials</th>
-                <th class="sector-name">Basic materials</th>
-                <th class="sector-name">Industrials</th>
-                <th class="sector-name">Energy</th>
-                <th class="sector-name">Real estate</th>
-                <th class="sector-name">Utilities</th>
+                <th class="sector-name sector-pointer">Technology</th>
+                <th class="sector-name sector-pointer">Commnications</th>
+                <th class="sector-name sector-pointer">Consumer discretionary</th>
+                <th class="sector-name sector-pointer">Consumer staples</th>
+                <th class="sector-name sector-pointer">Health care</th>
+                <th class="sector-name sector-pointer">Financials</th>
+                <th class="sector-name sector-pointer">Basic materials</th>
+                <th class="sector-name sector-pointer">Industrials</th>
+                <th class="sector-name sector-pointer">Energy</th>
+                <th class="sector-name sector-pointer">Real estate</th>
+                <th class="sector-name sector-pointer">Utilities</th>
             </tr>
         </table>
 
@@ -30,8 +30,9 @@
         </table>
 
         <script>
-            Array.from(document.querySelectorAll('.sector-name')).forEach(element=>{
-                element.addEventListener('click',handleSectorNameClick)
+            let companies = []
+            Array.from(document.querySelectorAll('.sector-name')).forEach(element => {
+                element.addEventListener('click', handleSectorNameClick)
             })
 
             let sectors = [
@@ -82,6 +83,7 @@
 
                 let tr = document.createElement('tr')
                 tr.classList.add(dayStringClass)
+                tr.classList.add('date-row')
 
                 let td = document.createElement('td')
                 td.textContent = newDate
@@ -96,8 +98,6 @@
                 }
 
             }
-
-
 
 
             let weekDays = {
@@ -119,21 +119,10 @@
                 console.log("------------")
                 console.log(resp)
                 resp.forEach(company => {
-                    console.log(company.ticker)
+                    companies.push(company)
                     let sector = company.sector.replaceAll(' ', "")
-
-
                     let earningsDate = "M" + company.earningsDate
                     if (sector && sector != "n.a." && earningsDate && earningsDate != "Mn.a.") {
-
-
-
-
-
-
-
-
-
                         let row = document.querySelector(`.${earningsDate}`)
                         if (row) {
                             let cell = row.querySelector(`.${sector}`)
@@ -146,16 +135,20 @@
                         }
                     }
                 });
+                console.log(companies)
             }
 
             async function handleTickerClick(evt) {
-                console.log(evt.target.textContent)
-            }
-            function handleSectorNameClick(evt){
-                console.log(evt.target.textContent)
+                let targetTicker = evt.target.textContent
+                console.log(targetTicker)
+                localStorage.ticker = targetTicker
+                window.location.assign('getOneTicker.html')
+
             }
 
-
+            function handleSectorNameClick(evt) {
+                console.log(evt.target.textContent)
+            }
         </script>
     </body>
     <style>

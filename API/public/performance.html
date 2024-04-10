@@ -11,6 +11,7 @@
     <body>
         <div class="main">
             <h3>Last price date: <span class="lastpricedate"></span></h3>
+            <h3>Collection name:<span class="collection-name"></span></h3>
             <table class="table-indices">
 
                 <h3>Indices</h3>
@@ -134,17 +135,16 @@
                     </table>
                 </div>
             </div>
-
-
         </div>
 
         <template id="sector-template">
             <div class="sector-second">
                 <div class="sector-heading">
-                    <div class="sector-heading-element sector-heading-element-name"><span class="sector-span sector-name"></span></div>
+                    <div class="sector-heading-element sector-heading-element-name"><span
+                            class="sector-span sector-name"></span></div>
                     <div class="sector-heading-element"><span class="sector-span sector-mc"></span></div>
-                    <div class="sector-heading-element"># comp: <span
-                            class="sector-span sector-companies-count"></span></div>
+                    <div class="sector-heading-element"># comp: <span class="sector-span sector-companies-count"></span>
+                    </div>
                     <button class="sector-open-close">Open</button>
                 </div>
                 <div class="sector-industry-holder"></div>
@@ -154,7 +154,8 @@
         <template id="industry-template">
             <div class="industry">
                 <div class="industry-heading">
-                    <div class="industry-heading-element industry-heading-element-name">        <span class="industry-span industry-name"></span>
+                    <div class="industry-heading-element industry-heading-element-name"> <span
+                            class="industry-span industry-name"></span>
                     </div>
                     <div class="industry-heading-element">MC: <span class="industry-span industry-mc"></span></div>
                     <div class="industry-heading-element"># of comp:<span

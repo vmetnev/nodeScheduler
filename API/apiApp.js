@@ -50,7 +50,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.use('/oneticker', require('./Routes/oneTickerRoutes'))
-
+ 
 
 
 app.use('/news', require('./Routes/newsRoutes'))

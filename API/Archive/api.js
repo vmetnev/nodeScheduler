@@ -40,10 +40,4 @@ router.get('/api/performanceAll', async (req, res) => {
 })
 
 
-
-
-
-
-
-
 module.exports = router
